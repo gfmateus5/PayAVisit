@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,11 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
   int _selectedIndex = -1;
   bool _isFiltered = false;
 
+  RxDouble currentBalance = 5.0.obs;
+  RxDouble moneyToSpend = 5.0.obs;
+
   void _onItemTapped(index) {
+    // handles the 4 bottomBar buttons
     if (_selectedIndex == index && _isFiltered) {
       PayAVisitController.to.displayMarkers();
       _isFiltered = false;
@@ -38,30 +43,78 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
 
   filter() {
     return SimpleDialog(
-      title: Text('Filter by proximity'),
+      //title: Text('Dinis "A Pedra"', style: TextStyle(fontSize: 11)),
+      backgroundColor: Colors.black,
       children: [
-        Obx(
-          () => Slider(
-            value: PayAVisitController.to.radius.value,
-            min: 0,
-            max: 10,
-            divisions: 10000,
-            label: PayAVisitController.to.distance,
-            onChanged: (value) => PayAVisitController.to.radius.value = value,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(right: 24, top: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                onPressed: () => PayAVisitController.to.filterSpots(),
-                child: Text('Filter'),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Text.rich(
+              TextSpan(
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.amber,
+                ),
+                children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(Icons.person, color: Colors.black),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.amber),
+                          shape:
+                              MaterialStateProperty.all(const CircleBorder())),
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Dinis "A Pedra"',
+                  )
+                ],
               ),
-              TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
-            ],
-          ),
+            ),
+          ]),
+          Column(children: <Widget>[
+            TextButton(
+              onPressed: () => Get.back(),
+              child: Icon(Icons.close, color: Colors.black),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.amber),
+                  shape: MaterialStateProperty.all(const CircleBorder())),
+            )
+          ]),
+        ]),
+        Text('\n\nCurrent Balance',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.amber, fontSize: 20)),
+        Text('\$${currentBalance.value}',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.amber, fontSize: 40, fontWeight: FontWeight.bold)),
+        Obx(() => Slider(
+              value: moneyToSpend.value,
+              min: 0,
+              max: currentBalance.value,
+              divisions: (currentBalance.value * 2.0).toInt(),
+              label: moneyToSpend.value.toString(),
+              onChanged: (value) {
+                setState(() {
+                  moneyToSpend.value = value;
+                });
+              }),
+        ),
+        Divider(),Divider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                currentBalance.value -= moneyToSpend.value;
+                moneyToSpend.value = currentBalance.value; // reset
+                Get.back();
+              },
+              child: Text('PAY', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ],
         ),
       ],
     );

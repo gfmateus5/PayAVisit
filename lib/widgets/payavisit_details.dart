@@ -10,32 +10,35 @@ class SpotDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
-      child: Stack(
-        children: [
-          Image.network(
-            image,
-            height: 300,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-          Container(
-            margin: EdgeInsets.all(24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
+      child: Stack(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.network(
+              image,
+              //height: 150,
+              width: MediaQuery.of(context).size.width / 2,
+              alignment: Alignment.topLeft,
+              fit: BoxFit.fitWidth,
             ),
-            child: Text(
-              name,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
+
+            /*Container(
+                margin: EdgeInsets.all(24),
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  color: Colors.black.withOpacity(0.7),
+                ),
+                child: */
+            Flexible(
+              child: Stack(children:[
+                Text(name,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 30, color: Colors.white)),
+            ])),
+          ],
+        )
+      ]),
     );
   }
 }
