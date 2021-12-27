@@ -6,7 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_maps_exemplo/database/db.dart';
-import 'package:flutter_google_maps_exemplo/widgets/payavisit_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/event_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/spot_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/store_details.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -29,9 +31,6 @@ class PayAVisitController extends GetxController {
   static PayAVisitController get to => Get.find<PayAVisitController>();
   get mapsController => _mapsController;
   get position => _position;
-  String get distance => radius.value < 1
-      ? '${(radius.value * 1000).toStringAsFixed(0)} m'
-      : '${(radius.value).toStringAsFixed(1)} km';
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
@@ -82,45 +81,45 @@ class PayAVisitController extends GetxController {
   }
 
   displayMarkers() {
-    _stores.docs.forEach((store) => addMarker(store, _iconStores));
-    _events.docs.forEach((event) => addMarker(event, _iconEvents));
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots));
+    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
+    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
+    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
   filterSpots() async {
     removeMarkers();
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots));
+    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
     FirebaseFirestore db = DB.get();
-    _spots = await db.collection('spots_test').get();
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots));
+    _spots = await db.collection('spots_test2').get();
+    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
   filterStores() async {
     removeMarkers();
-    _stores.docs.forEach((store) => addMarker(store, _iconStores));
+    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
   }
 
   loadStores() async {
     _iconStores = await getBytesFromAsset('assets/store-ic.png', 64);
     FirebaseFirestore db = DB.get();
-    _stores = await db.collection('stores_test').get();
-    _stores.docs.forEach((store) => addMarker(store, _iconStores));
+    _stores = await db.collection('stores_test2').get();
+    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
   }
 
   filterEvents() async {
     removeMarkers();
-    _events.docs.forEach((event) => addMarker(event, _iconEvents));
+    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
   }
 
   loadEvents() async {
     _iconEvents = await getBytesFromAsset('assets/event-ic.png', 64);
     FirebaseFirestore db = DB.get();
-    _events = await db.collection('events_test').get();
-    _events.docs.forEach((event) => addMarker(event, _iconEvents));
+    _events = await db.collection('events_test2').get();
+    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
   }
 
   removeMarkers() {
@@ -128,7 +127,7 @@ class PayAVisitController extends GetxController {
     update();
   }
 
-  addMarker(spot, icon) async {
+  addMarker(spot, icon, type) async {
     GeoPoint point = spot.get('position.geopoint');
     print(spot.get('name'));
 
@@ -138,20 +137,43 @@ class PayAVisitController extends GetxController {
         position: LatLng(point.latitude, point.longitude),
         infoWindow: InfoWindow(title: spot.get('name')),
         icon: BitmapDescriptor.fromBytes(icon),
-        onTap: () => showDetails(spot.data()),
+        onTap: () => showDetails(spot.data(), type),
       ),
     );
     update();
   }
 
-  showDetails(spot) {
-    Get.bottomSheet(
-      SpotDetails(
-        name: spot['name'],
-        image: spot['image'],
-      ),
-      barrierColor: Colors.transparent,
-    );
+  showDetails(spot, type) {
+    switch(type) {
+      case 'spot':
+        Get.bottomSheet(
+          SpotDetails(
+            name: spot['name'],
+            image: spot['image'],
+          ),
+          barrierColor: Colors.transparent,
+        );
+        break;
+      case 'event':
+        Get.bottomSheet(
+          EventDetails(
+            name: spot['name'],
+            image: spot['image'],
+          ),
+          barrierColor: Colors.transparent,
+        );
+        break;
+      case 'store':
+        Get.bottomSheet(
+          StoreDetails(
+            name: spot['name'],
+            image: spot['image'],
+          ),
+          barrierColor: Colors.transparent,
+        );
+        break;
+    }
+
   }
 
   watchPosition() async {

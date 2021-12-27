@@ -26,9 +26,9 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
     } else {
       setState(() {
         _selectedIndex = index;
+        _isFiltered = true;
       });
 
-      _isFiltered = true;
       if (_selectedIndex == 0) {
         PayAVisitController.to.filterSpots();
       } else if (_selectedIndex == 1) {
@@ -41,9 +41,8 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
     }
   }
 
-  filter() {
+  pay() {
     return SimpleDialog(
-      //title: Text('Dinis "A Pedra"', style: TextStyle(fontSize: 11)),
       backgroundColor: Colors.black,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -89,8 +88,12 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
             style: TextStyle(color: Colors.amber, fontSize: 20)),
         Text('\$${currentBalance.value}',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.amber, fontSize: 40, fontWeight: FontWeight.bold)),
-        Obx(() => Slider(
+            style: TextStyle(
+                color: Colors.amber,
+                fontSize: 40,
+                fontWeight: FontWeight.bold)),
+        Obx(
+          () => Slider(
               value: moneyToSpend.value,
               min: 0,
               max: currentBalance.value,
@@ -102,7 +105,8 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 });
               }),
         ),
-        Divider(),Divider(),
+        Divider(),
+        Divider(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -132,14 +136,14 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           IconButton(
             icon: Icon(Icons.attach_money),
             onPressed: () {
-              showDialog(context: context, builder: (context) => filter());
+              showDialog(context: context, builder: (context) => pay());
             },
           ),
         ],
         leading: IconButton(
           icon: Icon(Icons.person),
           onPressed: () {
-            showDialog(context: context, builder: (context) => filter());
+            showDialog(context: context, builder: (context) => pay());
           },
         ),
       ),

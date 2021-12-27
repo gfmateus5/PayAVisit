@@ -90,15 +90,15 @@ class DB {
     ];
 
     spots.forEach((spot) {
-      firestore.collection('spots_test').add(spot);
+      firestore.collection('spots_test2').add(spot);
     });
 
     events.forEach((event) {
-      firestore.collection('events_test').add(event);
+      firestore.collection('events_test2').add(event);
     });
 
     stores.forEach((store) {
-      firestore.collection('stores_test').add(store);
+      firestore.collection('stores_test2').add(store);
     });
 
   }
