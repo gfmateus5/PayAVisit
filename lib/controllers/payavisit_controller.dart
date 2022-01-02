@@ -16,7 +16,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class PayAVisitController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
-  final radius = 0.0.obs;
+  //final radius = 0.0.obs;
 
   QuerySnapshot<Map<String, dynamic>> _spots;
   QuerySnapshot<Map<String, dynamic>> _stores;

@@ -22,7 +22,10 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
     // handles the 4 bottomBar buttons
     if (_selectedIndex == index && _isFiltered) {
       PayAVisitController.to.displayMarkers();
-      _isFiltered = false;
+      setState(() {
+        _isFiltered = false;
+        _selectedIndex = -1;
+      });
     } else {
       setState(() {
         _selectedIndex = index;
