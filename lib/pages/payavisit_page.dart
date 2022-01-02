@@ -220,7 +220,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                   alignment: Alignment.bottomCenter,
                   constraints: BoxConstraints(maxHeight: 30),
                   icon: Icon(Icons.theater_comedy,
-                      color: _selectedIndex == 2 ? Colors.pink : Colors.white),
+                      color: _selectedIndex == 2 ? Colors.purple : Colors.white),
                   onPressed: () {
                     _onItemTapped(2);
                   },
@@ -228,7 +228,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 Text('Events',
                     style: TextStyle(
                         color:
-                            _selectedIndex == 2 ? Colors.pink : Colors.white)),
+                            _selectedIndex == 2 ? Colors.purple : Colors.white)),
                 Text('', style: TextStyle(fontSize: 5)),
               ],
             ),

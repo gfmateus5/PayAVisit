@@ -31,8 +31,9 @@ class EventDetails extends StatelessWidget {
                 padding: EdgeInsets.only(left: 15, right: 15),
                 child: Text(
                   name,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 23,
                     color: Colors.amber,
                     fontWeight: FontWeight.w600,
                   ),
