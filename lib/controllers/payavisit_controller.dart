@@ -16,21 +16,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class PayAVisitController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
-  //final radius = 0.0.obs;
 
   QuerySnapshot<Map<String, dynamic>> _spots;
   QuerySnapshot<Map<String, dynamic>> _stores;
   QuerySnapshot<Map<String, dynamic>> _events;
 
   StreamSubscription<Position> positionStream;
-  LatLng _position = LatLng(38.7450825782112, -9.14634367248467);
   GoogleMapController _mapsController;
   final markers = Set<Marker>();
   Uint8List _iconSpots, _iconStores, _iconEvents;
 
   static PayAVisitController get to => Get.find<PayAVisitController>();
   get mapsController => _mapsController;
-  get position => _position;
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
@@ -41,32 +38,6 @@ class PayAVisitController extends GetxController {
         .buffer
         .asUint8List();
   }
-
-  /*filterSpots() {
-    final geo = Geoflutterfire();
-    final db = DB.get();
-
-    GeoFirePoint center = geo.point(
-      latitude: latitude.value,
-      longitude: longitude.value,
-    );
-
-    CollectionReference ref = db.collection('spots');
-
-    String field = 'position';
-
-    Stream<List<DocumentSnapshot>> stream =
-        geo.collection(collectionRef: ref).within(center: center, radius: radius.value, field: field);
-
-    stream.listen((List<DocumentSnapshot> spots) {
-      markers.clear();
-      spots.forEach((spot) {
-        addMarker(spot, 'spot');
-        update();
-      });
-      Get.back();
-    });
-  }*/
 
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;

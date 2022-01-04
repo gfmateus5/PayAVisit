@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
+import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -157,18 +158,39 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
               init: controller,
               builder: (value) => GoogleMap(
                 mapType: MapType.normal,
-                zoomControlsEnabled: true,
+                zoomControlsEnabled: false,
+                onMapCreated: controller.onMapCreated,
                 initialCameraPosition: CameraPosition(
-                  target: controller.position,
+                  target: LatLng(
+                      controller.latitude.value, controller.longitude.value),
                   zoom: 13,
                 ),
-                onMapCreated: controller.onMapCreated,
                 myLocationEnabled: true,
                 markers: controller.markers,
               ),
             ),
           ),
         ],
+      ),
+      floatingActionButton: Align(
+        alignment: Alignment.bottomRight,
+        child: Container(
+          color: Colors.transparent,
+          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+          //width: double.infinity,
+          child: TextButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddSpotPage()),
+            ),
+            child: Icon(Icons.add, color: Colors.black),
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(10),
+                shadowColor: MaterialStateProperty.all(Colors.black),
+                backgroundColor: MaterialStateProperty.all(Colors.amber),
+                shape: MaterialStateProperty.all(const CircleBorder())),
+          ),
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
@@ -220,15 +242,17 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                   alignment: Alignment.bottomCenter,
                   constraints: BoxConstraints(maxHeight: 30),
                   icon: Icon(Icons.theater_comedy,
-                      color: _selectedIndex == 2 ? Colors.purple : Colors.white),
+                      color:
+                          _selectedIndex == 2 ? Colors.purple : Colors.white),
                   onPressed: () {
                     _onItemTapped(2);
                   },
                 ),
                 Text('Events',
                     style: TextStyle(
-                        color:
-                            _selectedIndex == 2 ? Colors.purple : Colors.white)),
+                        color: _selectedIndex == 2
+                            ? Colors.purple
+                            : Colors.white)),
                 Text('', style: TextStyle(fontSize: 5)),
               ],
             ),
