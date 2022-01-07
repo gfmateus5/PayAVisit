@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+
 class RoutePage extends StatefulWidget {
+  const RoutePage({Key key}) : super(key: key);
+
   @override
-  _RoutePage createState() => _RoutePage();
+  State<RoutePage> createState() => _RoutePageState();
 }
+
 class Route {
   String icon;
   String text;
 
   Route({this.icon, this.text});
 }
-class _RoutePage extends State<RoutePage> {
+
+class _RoutePageState extends State<RoutePage> {
 
   List<Route> routes = [
     Route(icon: 'mostfamousspots.png', text: 'Most Famous Spots'),
@@ -30,7 +35,7 @@ class _RoutePage extends State<RoutePage> {
       backgroundColor: Colors.grey.shade800,
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text('Choose the Type of Route you want'),
+        title: Text('CHOOSE THE ROUTE TYPE'),
         centerTitle: true,
         elevation: 0,
       ),

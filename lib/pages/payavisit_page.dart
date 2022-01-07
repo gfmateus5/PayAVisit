@@ -5,6 +5,9 @@ import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
 import 'package:flutter_google_maps_exemplo/pages/route_page.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../contract_linking.dart';
 
 class PayAVisitPage extends StatefulWidget {
   const PayAVisitPage({Key key}) : super(key: key);
@@ -17,8 +20,10 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
   int _selectedIndex = -1;
   bool _isFiltered = false;
 
-  RxDouble currentBalance = 5.0.obs;
-  RxDouble moneyToSpend = 5.0.obs;
+  int balance;
+  RxDouble moneyToSpend;
+
+  var contractLink;
 
   void _onItemTapped(index) {
     // handles the 4 bottomBar buttons
@@ -40,8 +45,6 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         PayAVisitController.to.filterStores();
       } else if (_selectedIndex == 2) {
         PayAVisitController.to.filterEvents();
-      } else if (_selectedIndex == 3) {
-        // TODO
       }
     }
   }
@@ -91,7 +94,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         Text('\n\nCurrent Balance',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.amber, fontSize: 20)),
-        Text('\$${currentBalance.value}',
+        Text('\$${balance}',
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.amber,
@@ -101,8 +104,8 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           () => Slider(
               value: moneyToSpend.value,
               min: 0,
-              max: currentBalance.value,
-              divisions: (currentBalance.value * 2.0).toInt(),
+              max: balance.toDouble(),
+              divisions: balance,
               label: moneyToSpend.value.toString(),
               onChanged: (value) {
                 setState(() {
@@ -117,8 +120,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           children: [
             ElevatedButton(
               onPressed: () {
-                currentBalance.value -= moneyToSpend.value;
-                moneyToSpend.value = currentBalance.value; // reset
+                contractLink.writeContract(contractLink.payAmount, [BigInt.from(moneyToSpend.value)]);
                 Get.back();
               },
               child: Text('PAY', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -132,6 +134,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PayAVisitController());
+    contractLink = Provider.of<ContractLinking>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -140,14 +143,20 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.attach_money),
-            onPressed: () {
+            onPressed: () async {
+              var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+              balance = result?.first?.toInt();
+              moneyToSpend = balance.toDouble().obs;
               showDialog(context: context, builder: (context) => pay());
             },
           ),
         ],
         leading: IconButton(
           icon: Icon(Icons.person),
-          onPressed: () {
+          onPressed: () async {
+            var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+            balance = result?.first?.toInt();
+            moneyToSpend = balance.toDouble().obs;
             showDialog(context: context, builder: (context) => pay());
           },
         ),
