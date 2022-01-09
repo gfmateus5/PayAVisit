@@ -57,7 +57,7 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     getPostsData();
     controller.addListener(() {
 
-      double value = controller.offset/275;
+      double value = controller.offset/230;
 
       setState(() {
         topContainer = value;
@@ -94,14 +94,12 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         double scale = 1.0;
-                        if (topContainer > 0.5) {
-                          scale = index + 0.5 - topContainer;
+                          scale = index + 1 - topContainer;
                           if (scale < 0) {
                             scale = 0;
                           } else if (scale > 1) {
                             scale = 1;
                           }
-                        }
                         return Opacity(
                           opacity: scale,
                           child: Transform(
