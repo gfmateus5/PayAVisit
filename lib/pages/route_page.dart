@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_exemplo/pages/most_famous_spots.dart';
 class RoutePage extends StatefulWidget {
   @override
   _RoutePage createState() => _RoutePage();
@@ -42,7 +43,12 @@ class _RoutePage extends State<RoutePage> {
               child: Card(
                 color: Colors.amber,
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MostFamousSpotsPage()),
+                    );
+                  },
                   title: Text(routes[index].text),
                   leading: CircleAvatar(
                     backgroundImage: AssetImage('assets/${routes[index].icon}'),
