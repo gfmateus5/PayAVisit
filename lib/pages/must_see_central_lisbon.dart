@@ -9,7 +9,6 @@ class MustSeeCentralLisbonPage extends StatefulWidget {
 
 class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
   ScrollController controller = ScrollController();
-  bool closeTopContainer = false;
   double topContainer = 0;
 
   List<Widget> itemsData = [];
@@ -28,15 +27,14 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
               children: <Widget>[
 
                 ListTile(
-                    title: new Center(child: new Text(post["name"],
-                      style: new TextStyle(
-                          fontWeight: FontWeight.w500, fontSize: 20.0),)),
-                      dense:true,
+                  title: new Center(child: new Text(post["name"],
+                    style: new TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 20.0),)),
+                  dense:true,
                 ),
                 ClipRRect(
                   child: Image.asset(
                       "assets/${post["image"]}",
-                      // width: 300,
                       height: 200,
                       fit:BoxFit.fill
                   ),
@@ -57,11 +55,10 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     getPostsData();
     controller.addListener(() {
 
-      double value = controller.offset/230;
+      double value = controller.offset/218;
 
       setState(() {
         topContainer = value;
-        closeTopContainer = controller.offset > 25;
       });
     });
   }
@@ -74,10 +71,21 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
       child: Scaffold(
         backgroundColor: Colors.grey.shade800,
         appBar: AppBar(
-          backgroundColor: Colors.red,
-          title: Text('Must See Spots in Central Lisbon'),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          toolbarHeight: 70,
+          title: Text("Must see spots in central Lisbon"),
           centerTitle: true,
-          elevation: 0,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                gradient: LinearGradient(
+                    colors: [Colors.red,Colors.redAccent],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter
+                )
+            ),
+          ),
         ),
         body: Container(
           height: size.height,
@@ -94,12 +102,12 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         double scale = 1.0;
-                          scale = index + 1 - topContainer;
-                          if (scale < 0) {
-                            scale = 0;
-                          } else if (scale > 1) {
-                            scale = 1;
-                          }
+                        scale = index + 1.5 - topContainer;
+                        if (scale < 0) {
+                          scale = 0;
+                        } else if (scale > 1) {
+                          scale = 1;
+                        }
                         return Opacity(
                           opacity: scale,
                           child: Transform(
