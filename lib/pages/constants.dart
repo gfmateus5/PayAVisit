@@ -1,47 +1,40 @@
 const FOOD_DATA = [
   {
-    "name":"Burger",
-    "brand":"Hawkers",
-    "price":2.99,
-  },{
-    "name":"Cheese Dip",
-    "brand":"Hawkers",
-    "price":4.99,
+    "name":"Panteão Nacional",
+    "image": "panteao.png"
   },
   {
-    "name":"Cola",
-    "brand":"Mcdonald",
-    "price":1.49,
+    "name":"Castelo de S. Jorge",
+    "image": "castelosjorge.png"
+  },
+  {
+    "name":"Alfama",
+    "image": "alfama.png"
+  },
+  {
+    "name":"Elevador de Santa Justa",
+    "image": "elevadorstjusta.png"
 
   },
   {
-    "name":"Fries",
-    "brand":"Mcdonald",
-    "price":2.99,
+    "name":"Terreiro do Paço",
+    "image": "terreirodopaco.png"
   },
   {
-    "name":"Ice Cream",
-    "brand":"Ben & Jerry's",
-    "price":9.49
+    "name":"Chiado",
+    "image": "chiado.png"
+  },
+
+  {
+    "name":"Padrão dos Descobrimentos",
+    "image": "padraodescobrimentos.png"
   },
   {
-    "name":"Noodles",
-    "brand":"Hawkers",
-    "price":4.49
+    "name":"Torre de Belém",
+    "image": "torrebelem.png"
   },
   {
-    "name":"Pizza",
-    "brand":"Dominos",
-    "price":17.99
-  },
-  {
-    "name":"Sandwich",
-    "brand":"Hawkers",
-    "price":2.99
-  },
-  {
-    "name":"Wrap",
-    "brand":"Subway",
-    "price":6.99,
+    "name":"Mosteiro dos Jerónimos",
+    "image": "mosteirojeronimos.png"
   }
 ];

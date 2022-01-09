@@ -18,40 +18,33 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     List<dynamic> responseList = FOOD_DATA;
     List<Widget> listItems = [];
     responseList.forEach((post) {
-      listItems.add(Container(
-          height: 150,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20.0)), color: Colors.white, boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
-          ]),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      listItems.add(Container(margin:EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          child: InkWell(
+            onTap: () => print("ciao"),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
               children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      post["name"],
-                      style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      post["brand"],
-                      style: const TextStyle(fontSize: 17, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "\$ ${post["price"]}",
-                      style: const TextStyle(fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
-                    )
-                  ],
+
+                ListTile(
+                    title: new Center(child: new Text(post["name"],
+                      style: new TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 20.0),)),
+                      dense:true,
+                ),
+                ClipRRect(
+                  child: Image.asset(
+                      "assets/${post["image"]}",
+                      // width: 300,
+                      height: 200,
+                      fit:BoxFit.fill
+                  ),
                 ),
               ],
             ),
-          )));
+          ),
+        ),));
     });
     setState(() {
       itemsData = listItems;
@@ -64,11 +57,11 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     getPostsData();
     controller.addListener(() {
 
-      double value = controller.offset/119;
+      double value = controller.offset/275;
 
       setState(() {
         topContainer = value;
-        closeTopContainer = controller.offset > 50;
+        closeTopContainer = controller.offset > 25;
       });
     });
   }
@@ -79,10 +72,10 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     final double categoryHeight = size.height*0.30;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.shade800,
         appBar: AppBar(
           backgroundColor: Colors.red,
-          title: Text('Choose the Type of Route you want'),
+          title: Text('Must See Spots in Central Lisbon'),
           centerTitle: true,
           elevation: 0,
         ),
@@ -91,7 +84,7 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
           child: Column(
             children: <Widget>[
               const SizedBox(
-                height: 10,
+                height: 1,
               ),
 
               Expanded(
@@ -115,7 +108,7 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
                             transform:  Matrix4.identity()..scale(scale,scale),
                             alignment: Alignment.bottomCenter,
                             child: Align(
-                                heightFactor: 0.7,
+                                heightFactor: 0.8,
                                 alignment: Alignment.topCenter,
                                 child: itemsData[index]),
                           ),
