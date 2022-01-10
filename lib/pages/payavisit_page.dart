@@ -293,37 +293,6 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           ],
         ),
       ),
-      /*bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: 'Spots',
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.coffee),
-            label: 'Stores',
-           // backgroundColor: Colors.blue,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.theater_comedy),
-            label: 'Events',
-            //backgroundColor: Colors.pink,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.alt_route_outlined),
-            label: 'Routes',
-            //backgroundColor: Colors.black,
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.black,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndex,
-        selectedItemColor: _onItemTapped(_selectedIndex),
-        unselectedItemColor: Colors.white,
-        onTap: _onItemTapped,
-      ),*/
     );
   }
 }

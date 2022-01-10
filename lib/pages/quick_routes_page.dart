@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps_exemplo/pages/most_famous_spots.dart';
-import 'package:flutter_google_maps_exemplo/pages/quick_routes_page.dart';
+import 'package:flutter_google_maps_exemplo/pages/baixa_chiado_route.dart';
+import 'package:flutter_google_maps_exemplo/pages/belem_route.dart';
+import 'package:flutter_google_maps_exemplo/pages/must_see_central_lisbon.dart';
+import 'package:flutter_google_maps_exemplo/pages/praca_comercio_route.dart';
 
-import 'historic_routes_page.dart';
-class RoutePage extends StatefulWidget {
+import 'marques_route.dart';
+class QuickRoutesPage extends StatefulWidget {
   @override
-  _RoutePage createState() => _RoutePage();
+  _QuickRoutesPage createState() => _QuickRoutesPage();
 }
-class Route {
-  String icon;
+class QuickRoute {
   String text;
   String url;
 
-  Route({this.icon, this.text, this.url});
+  QuickRoute({this.text, this.url});
 }
-class _RoutePage extends State<RoutePage> {
+class _QuickRoutesPage extends State<QuickRoutesPage> {
 
-  List<Route> routes = [
-    Route(icon: 'mostfamousspots.png', text: 'Most Famous Spots', url: 'https://offloadmedia.feverup.com/lisboasecreta.co/wp-content/uploads/2018/06/19182104/svetlana-gumerova-gOLCAOuc7iA-unsplash-scaled.jpg'),
-    Route(icon: 'quickroutes.png', text: 'Quick Routes', url: 'https://www.vendus.com/ao/foto/part-time-1200_og.jpg'),
-    Route(icon: 'lesserknownspots.png', text: 'Lesser Known Spots', url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/80/c0.jpg'),
-    Route(icon: 'historicspots.png', text: 'Historic Spots', url: 'https://www.agendalx.pt/content/uploads/2019/12/castelosaojorgelisboa3473.jpg'),
-    Route(icon: 'recentlyadded.png', text: 'Recently Added', url: 'https://mediawiki.ivao.aero/images/9/9e/NEW.jpg')
+  List<QuickRoute> spots = [
+    QuickRoute(text: 'Belém', url: 'https://media.iatiseguros.com/wp-content/uploads/sites/6/2020/01/28164823/panoramica-belem.jpg'),
+    QuickRoute(text: 'Baixa-Chiado', url: 'https://www.bestguide.pt/wp-content/uploads/2019/07/Chiado_06.jpg'),
+    QuickRoute(text: 'Praça do Comércio', url: 'https://i2.wp.com/turismo.eurodicas.com.br/wp-content/uploads/2019/04/pra%C3%A7a-do-comercio-em-lisboa.jpg?fit=1360%2C907&ssl=1'),
+    QuickRoute(text: 'Marquês de Pombal', url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/80/c0.jpg')
   ];
 
   @override
@@ -37,7 +37,7 @@ class _RoutePage extends State<RoutePage> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 70,
-          title: Text("Types of Routes"),
+          title: Text("Quick Routes"),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class _RoutePage extends State<RoutePage> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: routes.length,
+                    itemCount: spots.length,
                     itemBuilder: (BuildContext ctx, int index){
                       return Container(
                           margin: EdgeInsets.all(15),
@@ -66,32 +66,38 @@ class _RoutePage extends State<RoutePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) =>
-                                        MostFamousSpotsPage()),
+                                        BelemRoute()),
                                   );
                                 }
                                 if (index == 1) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) =>
-                                        QuickRoutesPage()),
+                                        ChiadoRoute()),
+                                  );
+                                }
+                                if (index == 2) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>
+                                        PracaComercioRoute()),
                                   );
                                 }
                                 if (index == 3) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) =>
-                                        HistoricPlacesPage()),
+                                        MarquesRoute()),
                                   );
                                 }
                               },
-
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   Positioned.fill( //guarantees the image fills the stack area
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(routes[index].url, fit: BoxFit.cover),
+                                        child: Image.network(spots[index].url, fit: BoxFit.cover),
                                       )
                                   ),
                                   Positioned(
@@ -141,7 +147,7 @@ class _RoutePage extends State<RoutePage> {
                                       alignment: FractionalOffset.bottomCenter,
                                       child: Row(
                                         children: [
-                                          Text(' ' + routes[index].text,
+                                          Text(spots[index].text,
                                             textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.white,

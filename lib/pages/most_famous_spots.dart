@@ -7,9 +7,8 @@ class MostFamousSpotsPage extends StatefulWidget {
 class MostFamousSpot {
   String text;
   String url;
-  Function onClick;
 
-  MostFamousSpot({this.text, this.url, this.onClick});
+  MostFamousSpot({this.text, this.url});
 }
 class _MostFamousSpotsPage extends State<MostFamousSpotsPage> {
 

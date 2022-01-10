@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_exemplo/pages/historic_places.dart';
 import 'constants.dart';
 
-class MustSeeCentralLisbonPage extends StatefulWidget {
+class HistoricPlacesPage extends StatefulWidget {
   @override
-  _MustSeeCentralLisbonPage createState() => _MustSeeCentralLisbonPage();
+  _HistoricPlacesPage createState() => _HistoricPlacesPage();
 }
 
-class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
+
+class _HistoricPlacesPage extends State<HistoricPlacesPage> {
   ScrollController controller = ScrollController();
   double topContainer = 0;
 
   List<Widget> itemsData = [];
 
   void getPostsData() {
-    List<dynamic> responseList = FOOD_DATA;
+    List<dynamic> responseList = HISTORIC;
     List<Widget> listItems = [];
     responseList.forEach((post) {
       listItems.add(Container(margin:EdgeInsets.all(8.0),
@@ -33,8 +35,8 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
                   dense:true,
                 ),
                 ClipRRect(
-                  child: Image.asset(
-                      "assets/${post["image"]}",
+                  child: Image.network(
+                      post["image"],
                       height: 200,
                       fit:BoxFit.fill
                   ),
@@ -74,7 +76,7 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 70,
-          title: Text("Must see spots in central Lisbon"),
+          title: Text("Historic Places"),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(

@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps_exemplo/pages/most_famous_spots.dart';
-import 'package:flutter_google_maps_exemplo/pages/quick_routes_page.dart';
-
-import 'historic_routes_page.dart';
-class RoutePage extends StatefulWidget {
+import 'package:flutter_google_maps_exemplo/pages/must_see_central_lisbon.dart';
+class ChiadoRoute extends StatefulWidget {
   @override
-  _RoutePage createState() => _RoutePage();
+  _ChiadoRoute createState() => _ChiadoRoute();
 }
-class Route {
-  String icon;
+class QuickRoute {
   String text;
   String url;
+  String money;
 
-  Route({this.icon, this.text, this.url});
+  QuickRoute({this.text, this.url, this.money});
 }
-class _RoutePage extends State<RoutePage> {
+class _ChiadoRoute extends State<ChiadoRoute> {
 
-  List<Route> routes = [
-    Route(icon: 'mostfamousspots.png', text: 'Most Famous Spots', url: 'https://offloadmedia.feverup.com/lisboasecreta.co/wp-content/uploads/2018/06/19182104/svetlana-gumerova-gOLCAOuc7iA-unsplash-scaled.jpg'),
-    Route(icon: 'quickroutes.png', text: 'Quick Routes', url: 'https://www.vendus.com/ao/foto/part-time-1200_og.jpg'),
-    Route(icon: 'lesserknownspots.png', text: 'Lesser Known Spots', url: 'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/80/c0.jpg'),
-    Route(icon: 'historicspots.png', text: 'Historic Spots', url: 'https://www.agendalx.pt/content/uploads/2019/12/castelosaojorgelisboa3473.jpg'),
-    Route(icon: 'recentlyadded.png', text: 'Recently Added', url: 'https://mediawiki.ivao.aero/images/9/9e/NEW.jpg')
+  List<QuickRoute> spots = [
+    QuickRoute(text: 'Baixa-Chiado', url: 'https://www.bestguide.pt/wp-content/uploads/2019/07/Chiado_06.jpg', money: '100'),
+    QuickRoute(text: 'Convento do Carmo', url: 'https://lisboasecreta.co/wp-content/uploads/2019/10/1641047433_93e5e0e884_h.jpg', money: '400'),
+    QuickRoute(text: 'Elevador de Santa Justa', url: 'https://euroveloportugal.com/files/2016/02/lisbon-elevador-justa.jpg', money: '300'),
+    QuickRoute(text: 'Rossio', url: 'https://spguia.melhoresdestinos.com.br/system/fotos_local/fotos/16494/show/praca-do-rossio.jpg', money: '100')
   ];
 
   @override
@@ -37,7 +33,7 @@ class _RoutePage extends State<RoutePage> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 70,
-          title: Text("Types of Routes"),
+          title: Text("Quick Routes - Baixa Chiado"),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -55,43 +51,21 @@ class _RoutePage extends State<RoutePage> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: routes.length,
+                    itemCount: spots.length,
                     itemBuilder: (BuildContext ctx, int index){
                       return Container(
                           margin: EdgeInsets.all(15),
-                          height: 150,
+                          height: 200,
                           child: InkWell(
                               onTap: () {
-                                if (index == 0) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>
-                                        MostFamousSpotsPage()),
-                                  );
-                                }
-                                if (index == 1) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>
-                                        QuickRoutesPage()),
-                                  );
-                                }
-                                if (index == 3) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>
-                                        HistoricPlacesPage()),
-                                  );
-                                }
                               },
-
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
                                   Positioned.fill( //guarantees the image fills the stack area
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(routes[index].url, fit: BoxFit.cover),
+                                        child: Image.network(spots[index].url, fit: BoxFit.cover),
                                       )
                                   ),
                                   Positioned(
@@ -99,7 +73,7 @@ class _RoutePage extends State<RoutePage> {
                                       left: 0,
                                       right: 0,
                                       child: Container(
-                                        height: 120,
+                                        height: 170,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(15),
@@ -118,8 +92,8 @@ class _RoutePage extends State<RoutePage> {
                                   ),
                                   Positioned(
                                     bottom: 13.5,
-                                    left: 35,
-                                    right: 35,
+                                    left: 30,
+                                    right: 30,
                                     child: Container(
                                       height: 40,
                                       decoration: BoxDecoration(
@@ -136,12 +110,47 @@ class _RoutePage extends State<RoutePage> {
                                     ),
                                   ),
                                   Positioned(
+                                    top: 10,
+                                    left: 280,
+                                    right: 10,
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                              colors: [
+                                                Colors.black.withOpacity(0.3),
+                                                Colors.black.withOpacity(0.4)
+                                              ]
+                                          )
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text('  ' + spots[index].money,
+                                            textAlign: TextAlign.end,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 25
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.attach_money,
+                                            size: 30,
+                                            color: Colors.amber,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
                                     bottom: 20,
                                     child: Align(
                                       alignment: FractionalOffset.bottomCenter,
                                       child: Row(
                                         children: [
-                                          Text(' ' + routes[index].text,
+                                          Text(spots[index].text,
                                             textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.white,
