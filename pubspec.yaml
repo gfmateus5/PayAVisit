@@ -33,6 +33,7 @@ dependencies:
   web3dart: ^1.2.3
   http: ^0.12.2
   web_socket_channel: ^1.2.0
+  fluttertoast: ^8.0.8
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,7 +60,6 @@ flutter:
     - assets/
     - assets/map/
     - src/artifacts/PayAVisit.json
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

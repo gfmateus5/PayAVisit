@@ -3,15 +3,13 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_google_maps_exemplo/pages/payavisit_page.dart';
-import 'package:flutter_google_maps_exemplo/pages/register_page.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -38,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: SizedBox(),
                       ),
                       Expanded(
-                        flex: 10,
+                        flex: 7,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15),
+                            filter: ImageFilter.blur(sigmaY: 25, sigmaX: 25),
                             child: SizedBox(
                               width: size.width * .9,
                               child: Column(
@@ -55,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                                       bottom: size.width * .1,
                                     ),
                                     child: Text(
-                                      'LOGIN',
+                                      'SIGN IN',
                                       style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.w600,
@@ -66,17 +64,41 @@ class _LoginPageState extends State<LoginPage> {
                                   component(
                                     Icons.account_circle_outlined,
                                     'User name...',
-                                    false
+                                    false,
+                                    false,
+                                  ),
+                                  component(
+                                    Icons.email_outlined,
+                                    'Email...',
+                                    false,
+                                    true,
                                   ),
                                   component(
                                     Icons.lock_outline,
                                     'Password...',
-                                    true
+                                    true,
+                                    false,
                                   ),
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                     children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          text: 'Forgotten password!',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              HapticFeedback.lightImpact();
+                                              Fluttertoast.showToast(
+                                                msg:
+                                                'Forgotten password! button pressed',
+                                              );
+                                            },
+                                        ),
+                                      ),
                                       RichText(
                                         text: TextSpan(
                                           text: 'Create a new Account',
@@ -86,27 +108,23 @@ class _LoginPageState extends State<LoginPage> {
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () {
                                               HapticFeedback.lightImpact();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) =>
-                                                    RegisterPage()),
+                                              Fluttertoast.showToast(
+                                                msg:
+                                                'Create a new Account button pressed',
                                               );
                                             },
                                         ),
                                       ),
                                     ],
                                   ),
-
-                                  SizedBox(height: size.width * .2),
+                                  SizedBox(height: size.width * .3),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
                                       HapticFeedback.lightImpact();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            PayAVisitPage()),
+                                      Fluttertoast.showToast(
+                                        msg: 'Sign-In button pressed',
                                       );
                                     },
                                     child: Container(
@@ -121,71 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'Log In',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      HapticFeedback.lightImpact();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            PayAVisitPage()),
-                                      );
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
-                                      height: size.width / 8,
-                                      width: size.width / 1.25,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        'Continue as DinisAPedra',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      HapticFeedback.lightImpact();
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>
-                                            PayAVisitPage()),
-                                      );
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
-                                      height: size.width / 8,
-                                      width: size.width / 1.25,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        'Continue as Tasca do Zé',
+                                        'Sing-In',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -215,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget component(
-      IconData icon, String hintText, bool isPassword) {
+      IconData icon, String hintText, bool isPassword, bool isEmail) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 8,
@@ -231,6 +185,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.white.withOpacity(.9),
         ),
         obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
