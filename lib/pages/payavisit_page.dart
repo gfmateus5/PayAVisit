@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
 import 'package:flutter_google_maps_exemplo/pages/route_page.dart';
+import 'package:flutter_google_maps_exemplo/widgets/nav_bar.dart';
 import 'package:flutter_google_maps_exemplo/widgets/open_painter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -147,7 +148,9 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
     contractLink = Provider.of<ContractLinking>(context);
 
     return Scaffold(
+      drawer: NavBar(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.grey.shade900,
         centerTitle: true,
         title: Image.asset('assets/payavisit_cut.png', width: 150),
@@ -163,16 +166,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
             },
           ),
         ],
-        leading: IconButton(
-          icon: Icon(Icons.view_headline, color: Colors.white),
-          onPressed: () async {
-            var result = await contractLink
-                .readContract(contractLink.getBalanceAmount, []);
-            balance = result?.first?.toInt();
-            moneyToSpend = balance.toDouble().obs;
-            showDialog(context: context, builder: (context) => pay());
-          },
-        ),
+        //leading: Icon(Icons.view_headline, color: Colors.white)
       ),
       body: Column(
         children: [
