@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_google_maps_exemplo/pages/payavisit_page.dart';
 
 class AddSpotPage extends StatefulWidget {
@@ -9,208 +12,221 @@ class AddSpotPage extends StatefulWidget {
 }
 
 class _AddSpotPageState extends State<AddSpotPage> {
-  String _name;
-  String _email;
-  String _password;
-  String _url;
-  String _phoneNumber;
-  String _calories;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  Widget _buildName(label, length) {
-    return TextFormField(
-      maxLength: length,
-      decoration: InputDecoration(
-          labelText: label, fillColor: Colors.black12, filled: true),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return label + ' is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _name = value;
-      },
-    );
-  }
-
-  Widget _buildEmail() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Email'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email is Required';
-        }
-
-        if (!RegExp(
-                r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-            .hasMatch(value)) {
-          return 'Please enter a valid email Address';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _email = value;
-      },
-    );
-  }
-
-  Widget _buildPassword() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Password'),
-      keyboardType: TextInputType.visiblePassword,
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Password is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _password = value;
-      },
-    );
-  }
-
-  Widget _buildURL() {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: 'Image URL', fillColor: Colors.black12, filled: true),
-      keyboardType: TextInputType.url,
-      /*validator: (String value) {
-        if (value.isEmpty) {
-          return 'URL is Required';
-        }
-
-        return null;
-      },*/
-      onSaved: (String value) {
-        _url = value;
-      },
-    );
-  }
-
-  Widget _buildPhoneNumber() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Phone number'),
-      keyboardType: TextInputType.phone,
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Phone number is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _url = value;
-      },
-    );
-  }
-
-  Widget _buildCalories() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Calories'),
-      keyboardType: TextInputType.number,
-      validator: (String value) {
-        int calories = int.tryParse(value);
-
-        if (calories == null || calories <= 0) {
-          return 'Calories must be greater than 0';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _calories = value;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      //backgroundColor: Colors.white24,
-      appBar: AppBar(title: Text("ADD NEW SPOT")),
-      body: SingleChildScrollView(
-        child: Container(
-          //color: Colors.red,
-          margin: EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 70),
-                _buildName('Name', 30),
-                _buildName('Description', 200),
-                _buildName('Location', 30),
-                _buildURL(),
-                SizedBox(height: 100),
-                ElevatedButton(
-                  child: Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  onPressed: () {
-                    if (!_formKey.currentState.validate()) {
-                      return null;
-                    }
-
-                    _formKey.currentState.save();
-
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              backgroundColor: Colors.black,
-                              content: Text(
-                                "Your suggestion has been successfully submited. "
-                                "Please, await for our team’s approval.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.amber,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              actions: [
-                                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                  ElevatedButton(
-                                    child: Text(
-                                      "Close",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
+      backgroundColor: Colors.grey.shade900,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        toolbarHeight: 70,
+        title: Text(
+          "ADD NEW SPOT",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              gradient: LinearGradient(
+                  colors: [Colors.amber, Colors.amberAccent],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter)),
+        ),
+      ),
+      body: ScrollConfiguration(
+        behavior: MyBehavior(),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: size.height,
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: size.height / 4,
+                ),
+                Center(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: SizedBox(),
+                      ),
+                      Expanded(
+                        flex: 10,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15),
+                            child: SizedBox(
+                              width: size.width * .9,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  component(Icons.location_on_outlined,
+                                      'Spot name...', false),
+                                  component(
+                                      Icons.map_outlined, 'Location...', false),
+                                  component(Icons.article_outlined,
+                                      'Description...', false),
+                                  component(Icons.image_outlined,
+                                      'Image URL...', false),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      dialog();
+                                    },
+                                    child: Container(
+                                      height: size.width / 8,
+                                      width: size.width / 1.25,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.amber,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        'Submit',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
                                     ),
-                                    onPressed: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PayAVisitPage()),
-                                    ),
-                                  )
-                                ])
-                              ],
-                            ));
-
-                    /*print(_name);
-                    print(_email);
-                    print(_phoneNumber);
-                    print(_url);
-                    print(_password);
-                    print(_calories);*/
-
-                    //Send to API
-                  },
-                )
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget component(IconData icon, String hintText, bool isPassword) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      height: size.width / 8,
+      width: size.width / 1.25,
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(right: size.width / 30),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(.1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+        style: TextStyle(
+          color: Colors.white.withOpacity(.9),
+        ),
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            icon,
+            color: Colors.white.withOpacity(.8),
+          ),
+          border: InputBorder.none,
+          hintMaxLines: 1,
+          hintText: hintText,
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.white.withOpacity(.5),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> dialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: Colors.grey.shade900,
+              content: Text(
+                "Your suggestion has been successfully submited. "
+                "Please, await for our team’s approval.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.amber,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              actions: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  ElevatedButton(
+                    child: Text(
+                      "Close",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+
+                      ),
+                    ),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PayAVisitPage()),
+                    ),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.amber),
+                        shape: MaterialStateProperty.all(
+                            const RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20.0))))),
+                  )
+                ])
+              ],
+            ));
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+    BuildContext context,
+    Widget child,
+    AxisDirection axisDirection,
+  ) {
+    return child;
   }
 }
