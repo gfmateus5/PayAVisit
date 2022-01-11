@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:flutter_google_maps_exemplo/pages/payavisit_page.dart';
+import 'package:flutter_google_maps_exemplo/pages/register_page.dart';
+List<bool> isSelected = [false, false];
+int tappedIndex = 3;
 class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -36,11 +39,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: SizedBox(),
                       ),
                       Expanded(
-                        flex: 7,
+                        flex: 10,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaY: 25, sigmaX: 25),
+                            filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15),
                             child: SizedBox(
                               width: size.width * .9,
                               child: Column(
@@ -52,79 +55,86 @@ class _RegisterPageState extends State<RegisterPage> {
                                       top: size.width * .15,
                                       bottom: size.width * .1,
                                     ),
-                                    child: Text(
-                                      'SIGN IN',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white.withOpacity(.8),
-                                      ),
+                                    child: Image.asset(
+                                        'assets/payavisit_cut.png',
+                                        height: 40,
+                                        width: 300
                                     ),
                                   ),
                                   component(
-                                    Icons.account_circle_outlined,
-                                    'User name...',
-                                    false,
-                                    false,
+                                      Icons.account_circle_outlined,
+                                      'User name...',
+                                      false
                                   ),
                                   component(
-                                    Icons.email_outlined,
-                                    'Email...',
-                                    false,
-                                    true,
+                                      Icons.account_circle_outlined,
+                                      'Email...',
+                                      false
                                   ),
                                   component(
-                                    Icons.lock_outline,
-                                    'Password...',
-                                    true,
-                                    false,
+                                      Icons.lock_outline,
+                                      'Password...',
+                                      true
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Forgotten password!',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              HapticFeedback.lightImpact();
-                                              Fluttertoast.showToast(
-                                                msg:
-                                                'Forgotten password! button pressed',
-                                              );
-                                            },
-                                        ),
-                                      ),
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Create a new Account',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              HapticFeedback.lightImpact();
-                                              Fluttertoast.showToast(
-                                                msg:
-                                                'Create a new Account button pressed',
-                                              );
-                                            },
-                                        ),
-                                      ),
-                                    ],
+                                  component(
+                                      Icons.lock_outline,
+                                      'Enter Password Again...',
+                                      true
                                   ),
-                                  SizedBox(height: size.width * .3),
+
+
+                                  //SizedBox(height: size.width * .2),
+                                  Container(
+
+                                    height: size.width / 3,
+                                    width: size.width / 1.25,
+                                    alignment: Alignment.center,
+                                    child: LayoutBuilder(builder: (context, constraints) {
+                                      return ToggleButtons(
+                                        borderRadius: BorderRadius.circular(
+                                            8.0),
+                                        children: <Widget>[
+                                          Container(width: (MediaQuery.of(context).size.width - 128)/2, child: new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[new Icon(Icons.person,size: 16.0,color: tappedIndex == 0 ? Colors.blue: Colors.white,),new SizedBox(width: 4.0,), new Text("REGULAR USER",style: TextStyle(color: tappedIndex == 0 ? Colors.blue: Colors.white,),)],)),
+                                          Container(width: (MediaQuery.of(context).size.width - 128)/2, child: new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[new Icon(Icons.business,size: 16.0,color: tappedIndex == 1 ? Colors.blue: Colors.white,),new SizedBox(width: 4.0,), new Text("BUSINESS",style: TextStyle(color: tappedIndex == 1 ? Colors.blue: Colors.white,))],)),
+                                          //Container(width: (MediaQuery.of(context).size.width - 36)/3, child: new Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[new Icon(Icons.ac_unit,size: 16.0,color: Colors.blue,),new SizedBox(width: 4.0,), new Text("COLD",style: TextStyle(color: Colors.blue))],)),
+                                          /*Icon(Icons.person, color:
+                                          tappedIndex == 0
+                                              ? Colors.blue
+                                              : Colors.white,
+                                          ),
+                                          Icon(Icons.business, color:
+                                          tappedIndex == 1
+                                              ? Colors.blue
+                                              : Colors.white),*/
+                                        ],
+
+                                        onPressed: (int index) {
+                                          setState(() {
+                                            if(index==0){
+                                              isSelected[0] = true;
+                                              isSelected[1] = false;
+                                            }
+                                            if(index==1){
+                                              isSelected[1] = true;
+                                              isSelected[0] = false;
+                                            }
+                                            tappedIndex = index;
+                                          });
+                                        },
+                                        isSelected: isSelected,
+                                      );
+                                    },
+                                  ),
+                                  ),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
                                       HapticFeedback.lightImpact();
-                                      Fluttertoast.showToast(
-                                        msg: 'Sign-In button pressed',
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>
+                                            PayAVisitPage()),
                                       );
                                     },
                                     child: Container(
@@ -135,11 +145,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
+                                        color: Colors.blue.withOpacity(.3),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'Sing-In',
+                                        'Register',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -148,12 +158,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     ),
                                   ),
+
                                 ],
                               ),
                             ),
                           ),
                         ),
                       ),
+
                       Expanded(
                         child: SizedBox(),
                       ),
@@ -169,7 +181,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget component(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
+      IconData icon, String hintText, bool isPassword) {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.width / 8,
@@ -185,7 +197,6 @@ class _RegisterPageState extends State<RegisterPage> {
           color: Colors.white.withOpacity(.9),
         ),
         obscureText: isPassword,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,

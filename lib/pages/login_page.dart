@@ -51,16 +51,13 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
-                                      top: size.width * .15,
-                                      bottom: size.width * .1,
+                                      top: size.width * 0.05,
+                                      bottom: size.width * 0.05,
                                     ),
-                                    child: Text(
-                                      'LOGIN',
-                                      style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white.withOpacity(.8),
-                                      ),
+                                    child: Image.asset(
+                                        'assets/payavisit_cut.png',
+                                      height: 40,
+                                      width: 300
                                     ),
                                   ),
                                   component(
@@ -73,31 +70,6 @@ class _LoginPageState extends State<LoginPage> {
                                     'Password...',
                                     true
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    children: [
-                                      RichText(
-                                        text: TextSpan(
-                                          text: 'Create a new Account',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              HapticFeedback.lightImpact();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) =>
-                                                    RegisterPage()),
-                                              );
-                                            },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  SizedBox(height: size.width * .2),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -110,14 +82,11 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
                                       height: size.width / 8,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
+                                        color: Colors.blue.withOpacity(.3),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
@@ -130,6 +99,27 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  //SizedBox(height: size.width * .0005),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -142,9 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
                                       height: size.width / 8,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
@@ -174,9 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                                       );
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(
-                                        bottom: size.width * .05,
-                                      ),
                                       height: size.width / 8,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
@@ -193,6 +177,39 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      HapticFeedback.lightImpact();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>
+                                            RegisterPage()),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: size.width / 8,
+                                      width: size.width / 1.25,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(.1),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        'Create New Account',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                   ),
                                 ],
                               ),
