@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
 import 'package:flutter_google_maps_exemplo/pages/route_page.dart';
+import 'package:flutter_google_maps_exemplo/widgets/open_painter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
 
   pay() {
     return SimpleDialog(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey.shade900,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -66,7 +67,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                     alignment: PlaceholderAlignment.middle,
                     child: TextButton(
                       onPressed: () {},
-                      child: Icon(Icons.person, color: Colors.black),
+                      child: Icon(Icons.person, color: Colors.white),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.amber),
@@ -84,7 +85,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           Column(children: <Widget>[
             TextButton(
               onPressed: () => Get.back(),
-              child: Icon(Icons.close, color: Colors.black),
+              child: Icon(Icons.close, color: Colors.white),
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.amber),
                   shape: MaterialStateProperty.all(const CircleBorder())),
@@ -113,18 +114,27 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 });
               }),
         ),
-        Divider(),
-        Divider(),
+        SizedBox(height: 40),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                contractLink.writeContract(contractLink.payAmount, [BigInt.from(moneyToSpend.value)]);
-                Get.back();
-              },
-              child: Text('PAY', style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
+                onPressed: () {
+                  contractLink.writeContract(contractLink.payAmount,
+                      [BigInt.from(moneyToSpend.value)]);
+                  Get.back();
+                },
+                child: Text('PAY',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 23,
+                        color: Colors.white)),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.amber),
+                    shape: MaterialStateProperty.all(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0)))))),
           ],
         ),
       ],
@@ -138,13 +148,15 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey.shade900,
         centerTitle: true,
-        title: Text('PayAVisit'),
+        title: Image.asset('assets/payavisit_cut.png', width: 150),
         actions: [
           IconButton(
-            icon: Icon(Icons.attach_money),
+            icon: Icon(Icons.attach_money, color: Colors.white),
             onPressed: () async {
-              var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+              var result = await contractLink
+                  .readContract(contractLink.getBalanceAmount, []);
               balance = result?.first?.toInt();
               moneyToSpend = balance.toDouble().obs;
               showDialog(context: context, builder: (context) => pay());
@@ -152,9 +164,10 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
           ),
         ],
         leading: IconButton(
-          icon: Icon(Icons.person),
+          icon: Icon(Icons.view_headline, color: Colors.white),
           onPressed: () async {
-            var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+            var result = await contractLink
+                .readContract(contractLink.getBalanceAmount, []);
             balance = result?.first?.toInt();
             moneyToSpend = balance.toDouble().obs;
             showDialog(context: context, builder: (context) => pay());
@@ -203,96 +216,125 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  alignment: Alignment.bottomCenter,
-                  constraints: BoxConstraints(maxHeight: 30),
-                  icon: Icon(Icons.location_on,
-                      color: _selectedIndex == 0 ? Colors.amber : Colors.white),
-                  onPressed: () {
-                    _onItemTapped(0);
-                  },
-                ),
-                Text('Spots',
-                    style: TextStyle(
-                        color:
-                            _selectedIndex == 0 ? Colors.amber : Colors.white)),
-                Text('', style: TextStyle(fontSize: 5)),
+          color: Colors.grey.shade900,
+          child: Wrap(children: [
+            // Expanded(child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: 5,
+                    color: Colors.amber),
+                Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: 5,
+                    color: Colors.blue),
+                Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: 5,
+                    color: Colors.purple),
+                Container(
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: 5,
+                    color: Colors.red)
               ],
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  alignment: Alignment.bottomCenter,
-                  constraints: BoxConstraints(maxHeight: 30),
-                  icon: Icon(Icons.coffee,
-                      color: _selectedIndex == 1 ? Colors.blue : Colors.white),
-                  onPressed: () {
-                    _onItemTapped(1);
-                  },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      alignment: Alignment.bottomCenter,
+                      constraints: BoxConstraints(maxHeight: 30),
+                      icon: Icon(Icons.location_on,
+                          color: _selectedIndex == 0
+                              ? Colors.amber
+                              : Colors.white),
+                      onPressed: () {
+                        _onItemTapped(0);
+                      },
+                    ),
+                    Text('Spots',
+                        style: TextStyle(
+                            color: _selectedIndex == 0
+                                ? Colors.amber
+                                : Colors.white)),
+                    Text('', style: TextStyle(fontSize: 5)),
+                  ],
                 ),
-                Text('Stores',
-                    style: TextStyle(
-                        color:
-                            _selectedIndex == 1 ? Colors.blue : Colors.white)),
-                Text('', style: TextStyle(fontSize: 5)),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      alignment: Alignment.bottomCenter,
+                      constraints: BoxConstraints(maxHeight: 30),
+                      icon: Icon(Icons.coffee,
+                          color:
+                              _selectedIndex == 1 ? Colors.blue : Colors.white),
+                      onPressed: () {
+                        _onItemTapped(1);
+                      },
+                    ),
+                    Text('Stores',
+                        style: TextStyle(
+                            color: _selectedIndex == 1
+                                ? Colors.blue
+                                : Colors.white)),
+                    Text('', style: TextStyle(fontSize: 5)),
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      alignment: Alignment.bottomCenter,
+                      constraints: BoxConstraints(maxHeight: 30),
+                      icon: Icon(Icons.theater_comedy,
+                          color: _selectedIndex == 2
+                              ? Colors.purple
+                              : Colors.white),
+                      onPressed: () {
+                        _onItemTapped(2);
+                      },
+                    ),
+                    Text('Events',
+                        style: TextStyle(
+                            color: _selectedIndex == 2
+                                ? Colors.purple
+                                : Colors.white)),
+                    Text('', style: TextStyle(fontSize: 5)),
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    IconButton(
+                      alignment: Alignment.bottomCenter,
+                      constraints: BoxConstraints(maxHeight: 30),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RoutePage()),
+                        );
+                      },
+                      icon: Icon(Icons.alt_route_outlined,
+                          color:
+                              _selectedIndex == 3 ? Colors.red : Colors.white),
+                    ),
+                    Text('Routes',
+                        style: TextStyle(
+                            color: _selectedIndex == 3
+                                ? Colors.red
+                                : Colors.white)),
+                    Text('', style: TextStyle(fontSize: 5)),
+                  ],
+                )
               ],
             ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  alignment: Alignment.bottomCenter,
-                  constraints: BoxConstraints(maxHeight: 30),
-                  icon: Icon(Icons.theater_comedy,
-                      color:
-                          _selectedIndex == 2 ? Colors.purple : Colors.white),
-                  onPressed: () {
-                    _onItemTapped(2);
-                  },
-                ),
-                Text('Events',
-                    style: TextStyle(
-                        color: _selectedIndex == 2
-                            ? Colors.purple
-                            : Colors.white)),
-                Text('', style: TextStyle(fontSize: 5)),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                  alignment: Alignment.bottomCenter,
-                  constraints: BoxConstraints(maxHeight: 30),
-
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RoutePage()),
-                    );
-                  },
-
-                  icon: Icon(Icons.alt_route_outlined,
-                      color: _selectedIndex == 3 ? Colors.red : Colors.white),
-                ),
-                Text('Routes',
-                    style: TextStyle(
-                        color:
-                            _selectedIndex == 3 ? Colors.red : Colors.white)),
-                Text('', style: TextStyle(fontSize: 5)),
-              ],
-            )
-          ],
-        ),
-      ),
+          ])),
     );
   }
 }

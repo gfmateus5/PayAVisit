@@ -34,7 +34,7 @@ class ContractLinking extends ChangeNotifier {
   /// This will construct [credentials] with the provided [privateKey]
   /// and load the Ethereum address in [myAddress] specified by these credentials.
   String privateKey =
-      "cb762b74bfb6edcbc94daf0a081b950e20c17220f70f405f3e8f47d7d4f3bc32";
+      "69d4aef3679fec93e61dbae1c63b2c305898797bdaf99d199e536a0e7480bc25";
   Credentials credentials;
   EthereumAddress myAddress;
 
