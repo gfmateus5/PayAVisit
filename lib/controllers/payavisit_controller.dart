@@ -29,6 +29,10 @@ class PayAVisitController extends GetxController {
   static PayAVisitController get to => Get.find<PayAVisitController>();
   get mapsController => _mapsController;
 
+  QuerySnapshot<Map<String, dynamic>> get spots => _spots;
+  QuerySnapshot<Map<String, dynamic>> get stores => _stores;
+  QuerySnapshot<Map<String, dynamic>> get events => _events;
+
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
