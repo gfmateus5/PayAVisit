@@ -8,15 +8,19 @@ class QuickRoute {
   String text;
   String url;
   String money;
+  String description;
 
-  QuickRoute({this.text, this.url, this.money});
+  QuickRoute({this.text, this.url, this.money, this.description});
 }
 class _BelemRoute extends State<BelemRoute> {
 
   List<QuickRoute> spots = [
-    QuickRoute(text: 'Torre de Belém', url: 'https://dicasdelisboa.com.br/wp-content/uploads/2015/03/torre-de-belem-lisboa-3.jpg', money: '200'),
-    QuickRoute(text: 'Padrão dos Descobrimentos', url: 'https://cdn.getyourguide.com/img/location/54d8c4646ea4f.jpeg/88.jpg', money: '250'),
-    QuickRoute(text: 'Mosteiro dos Jerónimos', url: 'https://www.mundoportugues.pt/wp-content/uploads/sites/3/2017/10/article_64292.jpg', money: '275')
+    QuickRoute(text: 'Torre de Belém', url: 'https://dicasdelisboa.com.br/wp-content/uploads/2015/03/torre-de-belem-lisboa-3.jpg', money: '200',
+        description: 'Este monumento foi construído com o propósito de servir tanto como porta de entrada para a cidade de Lisboa mas também como defesa contra possíveis invasões e ataques a partir do Tejo.'),
+    QuickRoute(text: 'Padrão dos Descobrimentos', url: 'https://cdn.getyourguide.com/img/location/54d8c4646ea4f.jpeg/88.jpg', money: '250',
+        description: 'Este monumento foi construído com o propósito de servir tanto como porta de entrada para a cidade de Lisboa mas também como defesa contra possíveis invasões e ataques a partir do Tejo.'),
+    QuickRoute(text: 'Mosteiro dos Jerónimos', url: 'https://www.mundoportugues.pt/wp-content/uploads/sites/3/2017/10/article_64292.jpg', money: '275',
+        description: 'Este monumento foi construído com o propósito de servir tanto como porta de entrada para a cidade de Lisboa mas também como defesa contra possíveis invasões e ataques a partir do Tejo.')
   ];
 
   @override
@@ -57,6 +61,58 @@ class _BelemRoute extends State<BelemRoute> {
                           height: 200,
                           child: InkWell(
                               onTap: () {
+                                showDialog(context: context, builder: (context) =>
+                                  SimpleDialog(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                    backgroundColor: Colors.grey.shade900,
+                                    children: <Widget>[
+                                      SizedBox(height: 10),
+                                      Text(spots[index].text, style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.bold,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(height: 15),
+                                      ClipRRect(
+                                        child: Image.network(spots[index].url, height: 200, fit: BoxFit.fill,),
+                                      ),
+                                      SizedBox(height: 22),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 35, right: 35),
+                                        alignment: FractionalOffset.center,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue,
+                                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                                        ),
+                                        child: Wrap(
+                                          children: [
+                                            Text('Redeem ' + spots[index].money,
+                                            style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,),
+                                            Icon(
+                                              Icons.attach_money,
+                                              color: Colors.amber,
+                                              size: 25,
+                                            )
+                                          ]
+                                        )
+                                      ),
+                                      SizedBox(height: 22),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 35, right: 35, bottom: 15),
+                                        child: Text(spots[index].description, style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                          textAlign: TextAlign.center
+                                        ),
+                                      )
+                                    ]
+                                  )
+                                );
                               },
                               child: Stack(
                                 alignment: Alignment.center,
@@ -82,7 +138,7 @@ class _BelemRoute extends State<BelemRoute> {
                                                 begin: Alignment.bottomCenter,
                                                 end: Alignment.topCenter,
                                                 colors: [
-                                                  Colors.black.withOpacity(0.4),
+                                                  Colors.black.withOpacity(0.3),
                                                   Colors.transparent
                                                 ]
                                             )

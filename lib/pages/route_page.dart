@@ -37,7 +37,7 @@ class _RoutePage extends State<RoutePage> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 70,
-          title: Text("Types of Routes"),
+          title: Text("TYPES OF ROUTES"),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -59,7 +59,7 @@ class _RoutePage extends State<RoutePage> {
                     itemBuilder: (BuildContext ctx, int index){
                       return Container(
                           margin: EdgeInsets.all(15),
-                          height: 150,
+                          height: 200,
                           child: InkWell(
                               onTap: () {
                                 if (index == 0) {
@@ -99,7 +99,7 @@ class _RoutePage extends State<RoutePage> {
                                       left: 0,
                                       right: 0,
                                       child: Container(
-                                        height: 120,
+                                        height: 170,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(15),
@@ -109,7 +109,7 @@ class _RoutePage extends State<RoutePage> {
                                                 begin: Alignment.bottomCenter,
                                                 end: Alignment.topCenter,
                                                 colors: [
-                                                  Colors.black.withOpacity(0.4),
+                                                  Colors.black.withOpacity(0.3),
                                                   Colors.transparent
                                                 ]
                                             )

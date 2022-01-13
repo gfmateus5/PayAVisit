@@ -82,7 +82,7 @@ class _PracaComercioRoute extends State<PracaComercioRoute> {
                                                 begin: Alignment.bottomCenter,
                                                 end: Alignment.topCenter,
                                                 colors: [
-                                                  Colors.black.withOpacity(0.4),
+                                                  Colors.black.withOpacity(0.3),
                                                   Colors.transparent
                                                 ]
                                             )

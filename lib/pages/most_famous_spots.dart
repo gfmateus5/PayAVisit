@@ -55,7 +55,7 @@ class _MostFamousSpotsPage extends State<MostFamousSpotsPage> {
                 itemBuilder: (BuildContext ctx, int index){
                   return Container(
                     margin: EdgeInsets.all(15),
-                    height: 150,
+                    height: 200,
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -77,7 +77,7 @@ class _MostFamousSpotsPage extends State<MostFamousSpotsPage> {
                             left: 0,
                             right: 0,
                             child: Container(
-                              height: 120,
+                              height: 170,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(15),
@@ -87,7 +87,7 @@ class _MostFamousSpotsPage extends State<MostFamousSpotsPage> {
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
                                   colors: [
-                                    Colors.black.withOpacity(0.4),
+                                    Colors.black.withOpacity(0.3),
                                     Colors.transparent
                                   ]
                                 )
