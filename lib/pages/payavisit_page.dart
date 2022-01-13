@@ -112,7 +112,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
               value: moneyToSpend.value,
               min: 0,
               max: balance.toDouble(),
-              divisions: balance,
+              divisions: balance == 0 ? 1 : balance,
               label: moneyToSpend.value.toString(),
               onChanged: (value) {
                 setState(() {
