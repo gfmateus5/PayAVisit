@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
+import 'package:flutter_google_maps_exemplo/pages/restaurant_menu_page.dart';
 import 'open_painter.dart';
 
 class StoreDetails extends StatelessWidget {
@@ -10,6 +11,7 @@ class StoreDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       color: Colors.black,
       child: Wrap(children: [
@@ -42,6 +44,35 @@ class StoreDetails extends StatelessWidget {
             )
           ],
         ),
+        InkWell(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  RestaurantMenuPage()),
+            );
+          },
+          child: Container(
+            height: size.width / 8,
+            width: size.width / 1.5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(.3),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              'Check Menu',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
           child: Text(
@@ -57,4 +88,3 @@ class StoreDetails extends StatelessWidget {
     );
   }
 }
-
