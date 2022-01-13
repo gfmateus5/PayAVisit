@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_maps_exemplo/pages/restaurant_menu_page.dart';
-import 'open_painter.dart';
+import '../open_painter.dart';
 
 class StoreDetails extends StatelessWidget {
   final String name;

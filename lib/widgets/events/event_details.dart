@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'open_painter.dart';
+import '../open_painter.dart';
 
-class SpotDetails extends StatelessWidget {
+class EventDetails extends StatelessWidget {
   final String name;
   final String image;
 
-  const SpotDetails({Key key, this.name, this.image}) : super(key: key);
+  const EventDetails({Key key, this.name, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class SpotDetails extends StatelessWidget {
       color: Colors.grey.shade900,
       child: Wrap(children: [
         CustomPaint(
-          painter: OpenPainter(MediaQuery.of(context).size.width, 10, Colors.amber),
+          painter: OpenPainter(MediaQuery.of(context).size.width, 10, Colors.pink),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
