@@ -6,9 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_google_maps_exemplo/database/db.dart';
-import 'package:flutter_google_maps_exemplo/widgets/event_details.dart';
-import 'package:flutter_google_maps_exemplo/widgets/spot_details.dart';
-import 'package:flutter_google_maps_exemplo/widgets/store_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/events/event_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/spots/spot_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/stores/store_details.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -55,11 +55,7 @@ class PayAVisitController extends GetxController {
     _mapsController.setMapStyle(style);
   }
 
-  displayMarkers() {
-    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
-    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
-  }
+  // ----------------------------- Spots --------------------------------
 
   filterSpots() async {
     removeMarkers();
@@ -68,10 +64,11 @@ class PayAVisitController extends GetxController {
 
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
-    FirebaseFirestore db = DB.get();
-    _spots = await db.collection('spots_test2').get();
+    _spots = await  DB.get().collection('spots_test2').get();
     _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
+
+  // ----------------------------- Stores --------------------------------
 
   filterStores() async {
     removeMarkers();
@@ -80,10 +77,11 @@ class PayAVisitController extends GetxController {
 
   loadStores() async {
     _iconStores = await getBytesFromAsset('assets/store-ic.png', 64);
-    FirebaseFirestore db = DB.get();
-    _stores = await db.collection('stores_test2').get();
+    _stores = await DB.get().collection('stores_test2').get();
     _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
   }
+
+  // ----------------------------- Events --------------------------------
 
   filterEvents() async {
     removeMarkers();
@@ -92,9 +90,16 @@ class PayAVisitController extends GetxController {
 
   loadEvents() async {
     _iconEvents = await getBytesFromAsset('assets/event-ic.png', 64);
-    FirebaseFirestore db = DB.get();
-    _events = await db.collection('events_test2').get();
+    _events = await DB.get().collection('events_test2').get();
     _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
+  }
+
+  // ----------------------------- Markers --------------------------------
+
+  displayMarkers() {
+    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
+    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
+    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
   removeMarkers() {
@@ -117,6 +122,8 @@ class PayAVisitController extends GetxController {
     );
     update();
   }
+
+  // ------------------------------ Aux ---------------------------------
 
   showDetails(spot, type) {
     switch(type) {
