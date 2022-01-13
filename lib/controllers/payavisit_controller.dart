@@ -64,7 +64,7 @@ class PayAVisitController extends GetxController {
 
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
-    _spots = await  DB.get().collection('spots_test2').get();
+    _spots = await  DB.get().collection('spots_skr').get();
     _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
