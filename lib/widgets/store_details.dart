@@ -13,7 +13,7 @@ class StoreDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.black,
+      color: Colors.grey.shade900,
       child: Wrap(children: [
         CustomPaint(
           painter: OpenPainter(MediaQuery.of(context).size.width, 10, Colors.blue),

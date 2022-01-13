@@ -11,7 +11,7 @@ class EventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: Colors.grey.shade900,
       child: Wrap(children: [
         CustomPaint(
           painter: OpenPainter(MediaQuery.of(context).size.width, 10, Colors.pink),

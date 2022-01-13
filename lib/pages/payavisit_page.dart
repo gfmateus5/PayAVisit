@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
 import 'package:flutter_google_maps_exemplo/pages/route_page.dart';
+import 'package:flutter_google_maps_exemplo/widgets/event_list.dart';
 import 'package:flutter_google_maps_exemplo/widgets/nav_bar.dart';
 import 'package:flutter_google_maps_exemplo/widgets/open_painter.dart';
+import 'package:flutter_google_maps_exemplo/widgets/spot_details.dart';
 import 'package:flutter_google_maps_exemplo/widgets/spot_list.dart';
+import 'package:flutter_google_maps_exemplo/widgets/store_list.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +54,16 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         );
       } else if (_selectedIndex == 1) {
         PayAVisitController.to.filterStores();
+        Get.bottomSheet(
+          StoreList(PayAVisitController.to.stores),
+          barrierColor: Colors.transparent,
+        );
       } else if (_selectedIndex == 2) {
         PayAVisitController.to.filterEvents();
+        Get.bottomSheet(
+          EventList(PayAVisitController.to.events),
+          barrierColor: Colors.transparent,
+        );
       }
     }
   }
@@ -172,7 +183,6 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
             },
           ),
         ],
-        //leading: Icon(Icons.view_headline, color: Colors.white)
       ),
       body: Column(
         children: [
@@ -200,7 +210,6 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
         child: Container(
           color: Colors.transparent,
           margin: EdgeInsets.symmetric(horizontal: 4, vertical: 10),
-          //width: double.infinity,
           child: TextButton(
             onPressed: () => Navigator.push(
               context,

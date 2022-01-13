@@ -2,19 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/widgets/list_items.dart';
-import 'package:flutter_google_maps_exemplo/widgets/spot_details.dart';
+import 'package:flutter_google_maps_exemplo/widgets/event_details.dart';
 
-class SpotList extends StatelessWidget {
+class EventList extends StatelessWidget {
 
   final QuerySnapshot<Map<String, dynamic>> _postData;
 
-  SpotList(this._postData);
-
+  EventList(this._postData);
 
   List<Widget> getPostsData() {
     List<Widget> listItems = [];
     _postData.docs.forEach((post) {
-      listItems.add(SpotDetails(
+      listItems.add(EventDetails(
         name: post['name'],
         image: post['image'],
       ));
