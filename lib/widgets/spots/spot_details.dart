@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,83 +10,92 @@ class SpotDetails extends StatelessWidget {
   final String name;
   final String image;
   final double distance;
+  final String description;
+  final String coins;
 
-  const SpotDetails({Key key, this.name, this.image, this.distance})
+  const SpotDetails({Key key, this.name, this.image, this.distance, this.description, this.coins})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var contractLink = Provider.of<ContractLinking>(context);
-    return Container(
-      color: Colors.grey.shade900,
-      child: Wrap(children: [
-        CustomPaint(
-          painter:
-              OpenPainter(MediaQuery.of(context).size.width, 10, Colors.amber),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Image.network(
-              image,
-              //height: 150,
-              width: MediaQuery.of(context).size.width / 2,
-              //alignment: Alignment.center,
-              fit: BoxFit.fitWidth,
+    print(MediaQuery.of(context).size.height);
+    print(MediaQuery.of(context).size.width);
+    return BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: SimpleDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+          backgroundColor: Colors.grey.shade900,
+          children: <Widget>[
+            SizedBox(height: 15),
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Text(name, style: TextStyle(
+                color: Colors.white,
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+              ),
+                textAlign: TextAlign.center,
+              ),
             ),
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.only(left: 15, right: 15),
-                child: Text(
-                  name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 23,
-                    color: Colors.amber,
-                    fontWeight: FontWeight.w600,
+            SizedBox(height: 20),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)
+              ),
+              child: Image.network(image, height: MediaQuery.of(context).size.height/3.5, fit: BoxFit.fill,),
+            ),
+            SizedBox(height: 22),
+            Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 22, right: 35),
+                  alignment: FractionalOffset.center,
+                  height: 40,
+                  width: 160,
+                  decoration: BoxDecoration(
+                    color: distance < 2000 ? Colors.amber : Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: InkWell(
+                    onTap: () =>
+                    {
+                      if (distance < 2000){
+                        Navigator.pop(context, contractLink.writeContract(contractLink.addDepositAmount, [BigInt.two]))
+                      } else {
+                        Navigator.pop(context)
+                      }
+                    },
+                    child: Wrap(
+                      children: [
+                        Text('  Redeem ' + coins,
+                          style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Icon(
+                          Icons.attach_money,
+                          color: Colors.white,
+                          size: 23,
+                        )
+                      ]
+                    )
                   ),
                 ),
+              ]
+            ),
+            SizedBox(height: 22),
+            Container(
+              margin: EdgeInsets.only(left: 35, right: 35, bottom: 15),
+              child: Text(description, style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+                  textAlign: TextAlign.center
               ),
             )
-          ],
-        ),
-        Row(children: [
-          Flexible(
-              child: Padding(
-                padding: EdgeInsets.only(top: 15, bottom: 15, left: 15, right: 15),
-            child: Text(
-              'SOME FUCKING DESCRIPTION',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.amber,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ))
-        ]),
-        Row(children: [
-          Padding(
-            padding: EdgeInsets.only(bottom: 15, left: 15),
-            child: ElevatedButton(
-                onPressed: () {
-                  contractLink.writeContract(
-                      contractLink.addDepositAmount, [BigInt.two]);
-                },
-                child: Text('Redeem',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white)),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        distance < 2000 ? Colors.amber : Colors.grey),
-                    shape: MaterialStateProperty.all(
-                        const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)))))),
-          )
-        ])
-      ]),
+          ]
+      )
     );
   }
 }

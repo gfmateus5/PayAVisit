@@ -189,6 +189,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
               init: controller,
               builder: (value) => GoogleMap(
                 mapType: MapType.normal,
+                mapToolbarEnabled: false,
                 zoomControlsEnabled: false,
                 onMapCreated: controller.onMapCreated,
                 initialCameraPosition: CameraPosition(

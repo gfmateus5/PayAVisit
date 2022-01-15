@@ -134,11 +134,13 @@ class PayAVisitController extends GetxController {
 
     switch (type) {
       case 'spot':
-        Get.bottomSheet(
+        Get.dialog(
           SpotDetails(
             name: spot['name'],
             image: spot['image'],
-            distance: distance
+            distance: distance,
+            description: spot['description'],
+            coins: spot['coins'],
           ),
           barrierColor: Colors.transparent,
         );
