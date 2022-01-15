@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -16,6 +17,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class PayAVisitController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
+
+  static Position _currentPosition;
 
   QuerySnapshot<Map<String, dynamic>> _spots;
   QuerySnapshot<Map<String, dynamic>> _stores;
@@ -64,7 +67,7 @@ class PayAVisitController extends GetxController {
 
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
-    _spots = await  DB.get().collection('spots_skr').get();
+    _spots = await DB.get().collection('spots_skr').get();
     _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
   }
 
@@ -125,13 +128,17 @@ class PayAVisitController extends GetxController {
 
   // ------------------------------ Aux ---------------------------------
 
-  showDetails(spot, type) {
-    switch(type) {
+  showDetails(spot, type) async {
+    double distance = await calculateDistance(spot['position']['geopoint']);
+    print(distance);
+
+    switch (type) {
       case 'spot':
         Get.bottomSheet(
           SpotDetails(
             name: spot['name'],
             image: spot['image'],
+            distance: distance
           ),
           barrierColor: Colors.transparent,
         );
@@ -141,6 +148,7 @@ class PayAVisitController extends GetxController {
           EventDetails(
             name: spot['name'],
             image: spot['image'],
+            distance: distance
           ),
           barrierColor: Colors.transparent,
         );
@@ -150,12 +158,26 @@ class PayAVisitController extends GetxController {
           StoreDetails(
             name: spot['name'],
             image: spot['image'],
+            distance: distance
           ),
           barrierColor: Colors.transparent,
         );
         break;
     }
+  }
 
+  static double calculateDistance(spot_position) {
+    var p = 0.017453292519943295;
+    var c = cos;
+    var lat1 = _currentPosition.latitude;
+    var lon1 = _currentPosition.longitude;
+    var lat2 = spot_position.latitude;
+    var lon2 = spot_position.longitude;
+
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a)) * 1000;
   }
 
   watchPosition() async {
@@ -173,7 +195,7 @@ class PayAVisitController extends GetxController {
     super.onClose();
   }
 
-  Future<Position> _currentPosition() async {
+  Future<Position> getCurrentPosition() async {
     LocationPermission permission;
     bool enabled = await Geolocator.isLocationServiceEnabled();
 
@@ -195,12 +217,13 @@ class PayAVisitController extends GetxController {
           'You need to authorize the location access in smartphone settings.');
     }
 
-    return await Geolocator.getCurrentPosition();
+    _currentPosition = await Geolocator.getCurrentPosition();
+    return _currentPosition;
   }
 
   getPosition() async {
     try {
-      final position = await _currentPosition();
+      final position = await getCurrentPosition();
       latitude.value = position.latitude;
       longitude.value = position.longitude;
       _mapsController.animateCamera(

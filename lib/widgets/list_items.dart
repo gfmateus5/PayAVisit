@@ -10,7 +10,7 @@ class ListItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 250,
+        //height: 250,
         child: ListView.builder(
           scrollDirection: Axis.vertical,
           itemCount: listItems.length,

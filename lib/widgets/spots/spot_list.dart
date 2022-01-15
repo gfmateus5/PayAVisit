@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/widgets/list_items.dart';
 import 'package:flutter_google_maps_exemplo/widgets/spots/spot_details.dart';
 
 class SpotList extends StatelessWidget {
-
   final QuerySnapshot<Map<String, dynamic>> _postData;
 
   SpotList(this._postData);
-
 
   List<Widget> getPostsData() {
     List<Widget> listItems = [];
@@ -17,6 +16,7 @@ class SpotList extends StatelessWidget {
       listItems.add(SpotDetails(
         name: post['name'],
         image: post['image'],
+        distance: PayAVisitController.calculateDistance(post['position']['geopoint'])
       ));
     });
     return listItems;
