@@ -31,6 +31,7 @@ class _RoutePage extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(

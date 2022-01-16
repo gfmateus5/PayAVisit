@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_google_maps_exemplo/pages/payavisit_page.dart';
-import 'package:flutter_google_maps_exemplo/pages/register_page.dart';
+import 'package:flutter_google_maps_exemplo/pages/company_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -38,18 +38,48 @@ class _LoginPageState extends State<LoginPage> {
                         child: SizedBox(),
                       ),
                       Expanded(
-                        flex: 10,
+                        flex: 1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15),
+                            filter: ImageFilter.blur(sigmaY: 0, sigmaX: 0),
                             child: SizedBox(
                               width: size.width * .9,
                               child: Column(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () {
+                                      HapticFeedback.lightImpact();
+                                    },
+                                    child: Container(
+                                      height: size.width / 10,
+                                      width: size.width / 1.25,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        'Welcome to',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  Image.asset(
+                                    'assets/payavisit_cut.png',
+                                    height: 40,
+                                    width: 300
+                                ),
+                                  /*Padding(
                                     padding: EdgeInsets.only(
                                       top: size.width * 0.05,
                                       bottom: size.width * 0.05,
@@ -69,8 +99,8 @@ class _LoginPageState extends State<LoginPage> {
                                     Icons.lock_outline,
                                     'Password...',
                                     true
-                                  ),
-                                  InkWell(
+                                  ),*/
+                                  /*InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
@@ -98,7 +128,8 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ),*/
+
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -136,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
+                                        color: Colors.blueAccent.withOpacity(.5),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
@@ -157,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) =>
-                                            PayAVisitPage()),
+                                            CompanyPage()),
                                       );
                                     },
                                     child: Container(
@@ -165,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(.1),
+                                        color: Colors.blueAccent.withOpacity(.5),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
@@ -178,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
-                                  InkWell(
+                                  /*InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () {
@@ -206,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ),*/
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
