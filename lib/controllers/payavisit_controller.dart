@@ -49,7 +49,7 @@ class PayAVisitController extends GetxController {
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosition();
-    //DB.setupDemoData();
+    DB.setupDemoData();
     loadSpots();
     loadStores();
     loadEvents();
@@ -80,7 +80,7 @@ class PayAVisitController extends GetxController {
 
   loadStores() async {
     _iconStores = await getBytesFromAsset('assets/store-ic.png', 64);
-    _stores = await DB.get().collection('stores_test2').get();
+    _stores = await DB.get().collection('stores_skr').get();
     _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
   }
 
@@ -141,6 +141,7 @@ class PayAVisitController extends GetxController {
             distance: distance,
             description: spot['description'],
             coins: spot['coins'],
+            rating: spot['rating'],
           ),
           barrierColor: Colors.transparent,
         );
@@ -156,11 +157,15 @@ class PayAVisitController extends GetxController {
         );
         break;
       case 'store':
-        Get.bottomSheet(
+        Get.dialog(
           StoreDetails(
             name: spot['name'],
             image: spot['image'],
-            distance: distance
+            distance: distance,
+            rating: spot['rating'],
+            description: spot['description'],
+            type: spot['type'],
+            price: spot['price']
           ),
           barrierColor: Colors.transparent,
         );

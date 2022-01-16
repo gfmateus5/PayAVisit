@@ -1,55 +1,36 @@
-const FOOD_DATA = [
+const CARNES = [
   {
-    "name":"Burger",
-    "brand":"Hawkers",
-    "price":2.99,
-    "image":"burger.png"
+    "name":"Febras",
+    "price":"7.50€",
+    "image":"https://cdn.e-konomista.pt/uploads/2019/07/122243-bbq-spicy-pork-steak-with-chili-and-fries-close-up-horizontal-top-view_1555289383-425x318.jpg"
   },{
-    "name":"Cheese Dip",
-    "brand":"Hawkers",
-    "price":4.99,
-    "image":"burger.png"
+    "name":"Almôndegas",
+    "price":"8.00€",
+    "image":"https://www.receitasdeliciosasnamesa.com/wp-content/uploads/2020/10/Receita-de-almondegas-no-forno.jpg"
   },
   {
-    "name":"Cola",
-    "brand":"Mcdonald",
-    "price":1.49,
-    "image":"burger.png"
+    "name":"Bolonhesa",
+    "price":"9.00€",
+    "image":"https://img.cybercook.com.br/receitas/610/espaguete-com-molho-a-bolonhesa-ou-ragu-bolognese-1.jpeg"
   },
   {
-    "name":"Fries",
-    "brand":"Mcdonald",
-    "price":2.99,
-    "image":"burger.png"
+    "name":"Bitoque",
+    "price":"8.50€",
+    "image":"https://cdn.tasteatlas.com/images/dishes/9c4888bb938346c3ada2cddd5d1a0ebc.jpg?w=600&h=450"
   },
   {
-    "name":"Ice Cream",
-    "brand":"Ben & Jerry's",
-    "price":9.49,
-    "image":"burger.png"
+    "name":"Picanha",
+    "price":"10.00€",
+    "image":"https://img.itdg.com.br/tdg/images/recipes/000/000/249/353704/353704_original.jpg?mode=crop&width=710&height=400"
   },
   {
-    "name":"Noodles",
-    "brand":"Hawkers",
-    "price":4.49,
-    "image":"burger.png"
+    "name":"Bife de Vaca",
+    "price":"13.00€",
+    "image":"http://ticasgest.pt/lxk/wp-content/uploads/2017/08/home_slide.jpg"
   },
   {
-    "name":"Pizza",
-    "brand":"Dominos",
-    "price":17.99,
-    "image":"burger.png"
+    "name":"Bife de Porco",
+    "price":"13.00€",
+    "image":"https://acarnequeomundoprefere.com.br/uploads/media/image/_PNK5837-Bifes_de_pernil_com_alecrim_e_alho.jpg"
   },
-  {
-    "name":"Sandwich",
-    "brand":"Hawkers",
-    "price":2.99,
-    "image":"burger.png"
-  },
-  {
-    "name":"Wrap",
-    "brand":"Subway",
-    "price":6.99,
-    "image":"burger.png"
-  }
 ];
