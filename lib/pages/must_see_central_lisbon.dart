@@ -69,12 +69,13 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
     final double categoryHeight = size.height*0.30;
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 70,
-          title: Text("Must see spots in central Lisbon"),
+          toolbarHeight: 55,
+          title: Text("Central Lisbon", style: TextStyle(color: Colors.black, fontSize: 22)),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -88,6 +89,13 @@ class _MustSeeCentralLisbonPage extends State<MustSeeCentralLisbonPage> {
           ),
         ),
         body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: new AssetImage('assets/login_background.png'),
+                fit: BoxFit.cover
+              // #Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
+            ),
+          ),
           height: size.height,
           child: Column(
             children: <Widget>[

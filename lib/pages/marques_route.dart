@@ -27,12 +27,13 @@ class _MarquesRoute extends State<MarquesRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 70,
-          title: Text("Quick Routes - Marquês de Pombal"),
+          toolbarHeight: 55,
+          title: Text("Marquês de Pombal", style: TextStyle(color: Colors.black, fontSize: 22)),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -46,6 +47,13 @@ class _MarquesRoute extends State<MarquesRoute> {
           ),
         ),
         body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: new AssetImage('assets/login_background.png'),
+                  fit: BoxFit.cover
+                // #Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
+              ),
+            ),
             child: Column(
               children: [
                 Expanded(

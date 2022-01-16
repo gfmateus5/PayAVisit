@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'borgar_list.dart';
 
 
+
 class RestaurantMenuPage extends StatefulWidget {
   @override
   _RestaurantMenuPageState createState() => _RestaurantMenuPageState();
@@ -33,7 +34,7 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
             ),
             image: new DecorationImage(
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.65), BlendMode.dstATop),
+              colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.8), BlendMode.dstATop),
               image: new NetworkImage(post['image']),
             ),
           ),
@@ -43,7 +44,7 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
                 margin: EdgeInsets.only(top: 50, left: 25, right: 25),
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.grey.shade800.withOpacity(0.5),
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
                 child: Row(
@@ -82,17 +83,19 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 70,
+          toolbarHeight: 55,
           title: Wrap(
             children: [
-              Text("Menu ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 33)),
+              Text("Menu ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22)),
               Icon(
                 Icons.restaurant_menu,
-                size: 33,
+                size: 22,
                 color: Colors.white,
               )
             ],
@@ -110,7 +113,14 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
           ),
         ),
         body: Container(
-          margin: EdgeInsets.only(top: 15),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: new AssetImage('assets/login_background.png'),
+                fit: BoxFit.cover
+              // #Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
+            ),
+          ),
+          margin: EdgeInsets.only(top: 7),
           height: size.height,
           width: size.width,
           child: Column(

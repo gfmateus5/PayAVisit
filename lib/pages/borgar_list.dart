@@ -29,8 +29,8 @@ const CARNES = [
     "image":"http://ticasgest.pt/lxk/wp-content/uploads/2017/08/home_slide.jpg"
   },
   {
-    "name":"Bife de Porco",
-    "price":"13.00€",
-    "image":"https://acarnequeomundoprefere.com.br/uploads/media/image/_PNK5837-Bifes_de_pernil_com_alecrim_e_alho.jpg"
+    "name":"Francesinha",
+    "price":"75.00€",
+    "image":"https://i0.wp.com/www.vortexmag.net/wp-content/uploads/2021/12/naom_5a99853652c49.jpg"
   },
 ];
