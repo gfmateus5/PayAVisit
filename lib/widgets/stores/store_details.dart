@@ -1,12 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_google_maps_exemplo/pages/restaurant_menu_page.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:provider/provider.dart';
 import '../../contract_linking.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
-class StoreDetails extends StatelessWidget {
+class StoreDetails extends StatefulWidget {
   final String name;
   final String image;
   final double distance;
@@ -18,7 +23,19 @@ class StoreDetails extends StatelessWidget {
   const StoreDetails({Key key, this.name, this.image, this.distance, this.rating, this.description, this.type, this.price}) : super(key: key);
 
   @override
+  _StoreDetails createState() => _StoreDetails();
+
+}
+
+class _StoreDetails extends State<StoreDetails> {
+
+  int balance;
+  RxDouble moneyToSpend;
+  var contractLink;
+
+  @override
   Widget build(BuildContext context) {
+    contractLink = Provider.of<ContractLinking>(context);
     return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: SimpleDialog(
@@ -34,7 +51,7 @@ class StoreDetails extends StatelessWidget {
               SizedBox(height: 15),
               Padding(
                 padding: EdgeInsets.only(left: 15, right: 15),
-                child: Text(name, style: TextStyle(
+                child: Text(widget.name, style: TextStyle(
                   color: Colors.white,
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
@@ -46,126 +63,374 @@ class StoreDetails extends StatelessWidget {
               Container(
                 height: 180,
                 child: Stack(
-                  children: [
-                    Positioned.fill( //guarantees the image fills the stack area
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(20),
-                            bottomLeft: Radius.circular(20),
-                          ),
-                          child: Image.network(image, fit: BoxFit.cover),
-                        )
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 9),
-                      margin: EdgeInsets.only(left: 260, top: 10, right: 14),
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.black.withOpacity(0.4)
-                      ),
-                      child: Row(
-                        children: [
-                          Text(rating + ' ',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold
+                    children: [
+                      Positioned.fill( //guarantees the image fills the stack area
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
                             ),
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 15,
-                            color: Colors.amber,
-                          ),
-                        ],
+                            child: Image.network(widget.image, fit: BoxFit.cover),
+                          )
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 14, top: 10, right: 260),
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.black.withOpacity(0.4)
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(price,
-                            style: TextStyle(
-                              fontSize: 18,
+                      Container(
+                        padding: EdgeInsets.only(left: 9),
+                        margin: EdgeInsets.only(left: 260, top: 10, right: 14),
+                        height: 30,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Row(
+                          children: [
+                            Text(widget.rating + ' ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Icon(
+                              Icons.star,
+                              size: 15,
                               color: Colors.amber,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    )
-                  ]
+                      Container(
+                        margin: EdgeInsets.only(left: 14, top: 10, right: 260),
+                        height: 30,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(widget.price,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ]
                 ),
               ),
               SizedBox(height: 22),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: FractionalOffset.center,
-                    height: 40,
-                    width: 160,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantMenuPage()));
-                      },
-                      child: Wrap(
-                        children: [
-                          Text('Check Menu ',
-                            style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ),
-                          Icon(
-                            Icons.restaurant_menu,
-                            color: Colors.white,
-                            size: 23,
-                          )
-                        ]
-                      )
-                    ),
-                  ),
-                  /*Container(
-                    margin: EdgeInsets.only(left: 15),
-                    alignment: FractionalOffset.center,
-                    height: 40,
-                    width: 50,
-                    decoration: BoxDecoration(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: FractionalOffset.center,
+                      height: 40,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.red
-                    ),
-                    child: InkWell(
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 30,
+                      ),
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantMenuPage()));
+                          },
+                          child: Wrap(
+                              children: [
+                                Text('Check Menu ',
+                                  style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Icon(
+                                  Icons.restaurant_menu,
+                                  color: Colors.white,
+                                  size: 23,
+                                )
+                              ]
+                          )
                       ),
                     ),
-                  )*/
-                ]
+                    SizedBox(width: 20),
+                    Container(
+                      alignment: FractionalOffset.center,
+                      height: 40,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      child: InkWell(
+                          onTap: () async {
+                            var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+                            balance = result?.first?.toInt();
+                            moneyToSpend = balance.toDouble().obs;
+                            showDialog(context: context, builder: (context) => pay());
+                          },
+                          child: Wrap(
+                              children: [
+                                Text('Pay ',
+                                  style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Icon(
+                                  Icons.attach_money,
+                                  color: Colors.white,
+                                  size: 23,
+                                )
+                              ]
+                          )
+                      ),
+                    ),
+                  ]
               ),
               SizedBox(height: 22),
               Container(
                 margin: EdgeInsets.only(left: 35, right: 35, bottom: 15),
-                child: Text(description, style: TextStyle(
+                child: Text(widget.description, style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
                     textAlign: TextAlign.center
                 ),
-              )
+              ),
+              SizedBox(height: 10),
+              Container(
+                  height: 40,
+                  margin: EdgeInsets.only(left: 135, right: 135),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.red.shade400
+                  ),
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(
+                        Icons.close_rounded,
+                        size: 30,
+                        color: Colors.black.withOpacity(0.65),
+                      )
+                  )
+              ),
+              SizedBox(height: 10)
             ]
         )
+    );
+  }
+
+  completed_transaction() {
+    return SimpleDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            side: BorderSide(
+              color: Colors.grey.shade800,
+              width: 6,
+            )
+        ),
+        backgroundColor: Colors.grey.shade900,
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+              alignment: Alignment.center,
+              child: Wrap(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Transaction completed', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold,), textAlign: TextAlign.center,),
+                        SizedBox(width: 10),
+                        CircleAvatar(
+                          backgroundColor: Colors.green,
+                          radius: 12,
+                          child: Icon(
+                            Icons.check,
+                            size: 15,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 70),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Available Balance:', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold), textAlign: TextAlign.center)
+                        ]
+                    ),
+                    SizedBox(height: 35),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${balance}€', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center)
+                        ]
+                    )
+                  ]
+              )
+          ),
+        ]
+    );
+  }
+
+  pay_verification() {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(
+            color: Colors.grey.shade800,
+            width: 6,
+          )
+      ),
+      backgroundColor: Colors.grey.shade900,
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 15, bottom: 10, left: 10, right: 10),
+            alignment: Alignment.center,
+            child: Text('Confirm ' + moneyToSpend.value.toString() + '€ transaction to ' + widget.name + '?', style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+              textAlign: TextAlign.center,
+            )
+        ),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 40,
+              width: 80,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.red.shade400,
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+              ),
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Text('NO', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.center),
+              ),
+            ),
+            SizedBox(width: 20),
+            Container(
+              height: 40,
+              width: 80,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.green.shade400,
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+              ),
+              child: InkWell(
+                onTap: () async {
+                  await contractLink.writeContract(contractLink.payAmount, [BigInt.from(moneyToSpend.value)]);
+                  var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+                  balance = result?.first?.toInt();
+                  Navigator.pop(context);
+                  showDialog(context: context, builder: (context) => completed_transaction());
+                },
+                child: Text('YES', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.center),
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 12)
+      ],
+    );
+  }
+
+  pay() {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(
+            color: Colors.grey.shade800,
+            width: 6,
+          )
+      ),
+      backgroundColor: Colors.grey.shade900,
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Text.rich(
+              TextSpan(
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.amber,
+                ),
+                children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(Icons.person, color: Colors.white),
+                      style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(Colors.amber),
+                          shape:
+                          MaterialStateProperty.all(const CircleBorder())),
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Dinis "A Pedra"',
+                  )
+                ],
+              ),
+            ),
+          ]),
+          Column(children: <Widget>[
+            TextButton(
+              onPressed: () => Get.back(),
+              child: Icon(Icons.close, color: Colors.white),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.amber),
+                  shape: MaterialStateProperty.all(const CircleBorder())),
+            )
+          ]),
+        ]),
+        SizedBox(height: 30),
+        Text('Current Balance',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.amber, fontSize: 20)),
+        SizedBox(height: 15),
+        Text('\$${balance}',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.amber,
+                fontSize: 40,
+                fontWeight: FontWeight.bold)),
+        Obx(
+              () => Slider(
+              value: moneyToSpend.value,
+              min: 0,
+              max: balance.toDouble(),
+              divisions: balance == 0 ? 1 : balance,
+              label: moneyToSpend.value.toString(),
+              onChanged: (value) {
+                setState(() {
+                  moneyToSpend.value = value;
+                });
+              }),
+        ),
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+                showDialog(context: context, builder: (context) => pay_verification());
+              },
+              child: Container(
+                height: 40,
+                width: 70,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Text('PAY', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: Colors.white), textAlign: TextAlign.center),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10)
+      ],
     );
   }
 }

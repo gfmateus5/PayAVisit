@@ -70,7 +70,7 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
     getPostsData();
     controller.addListener(() {
 
-      double value = controller.offset/119;
+      double value = controller.offset/140;
 
       setState(() {
         topContainer = value;
