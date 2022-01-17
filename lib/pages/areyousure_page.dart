@@ -5,21 +5,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_google_maps_exemplo/pages/login_page.dart';
-import 'package:flutter_google_maps_exemplo/pages/add_event_page.dart';
-import 'package:flutter_google_maps_exemplo/pages/areyousure_page.dart';
+import 'package:flutter_google_maps_exemplo/pages/company_page.dart';
 
 int _selectedIndex = -1;
-class CompanyPage extends StatefulWidget {
+class AreYouSurePage extends StatefulWidget {
   @override
-  _CompanyPageState createState() => _CompanyPageState();
+  _AreYouSurePageState createState() => _AreYouSurePageState();
 }
 
 void _onItemTapped(index) {
   // handles the 4 bottomBar buttons
   if (_selectedIndex == index) {
-      _selectedIndex = -1;
+    _selectedIndex = -1;
   } else {
-      _selectedIndex = index;
+    _selectedIndex = index;
 
     if (_selectedIndex == 0) {
     } else if (_selectedIndex == 1) {
@@ -28,7 +27,7 @@ void _onItemTapped(index) {
   }
 }
 
-class _CompanyPageState extends State<CompanyPage> {
+class _AreYouSurePageState extends State<AreYouSurePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,28 +60,47 @@ class _CompanyPageState extends State<CompanyPage> {
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaY: 0, sigmaX: 0),
                             child: SizedBox(
-                              //width: size.width * .9,
+                              width: size.width * .9,
                               child: Column(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                 Container(
-                                      height: size.width / 10,
-                                      width: size.width / 1.25,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        'Welcome back,',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                  ),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -90,15 +108,15 @@ class _CompanyPageState extends State<CompanyPage> {
                                       HapticFeedback.lightImpact();
                                     },
                                     child: Container(
-                                      height: size.width / 7,
-                                      width: size.width / 1.25,
+                                      height: size.width / 5,
+                                      width: size.width / 1,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'TASCA DO ZÉ',
+                                        'ARE YOU SURE?',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 50,
@@ -107,6 +125,8 @@ class _CompanyPageState extends State<CompanyPage> {
                                       ),
                                     ),
                                   ),
+
+
                                   Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
@@ -130,7 +150,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                       HapticFeedback.lightImpact();
                                     },
                                     child: Container(
-                                      height: size.width / 10,
+                                      height: size.width / 6,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -138,7 +158,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'This month, you have made',
+                                        'With PayAVisit, you have made an additional',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -162,7 +182,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        '1025€',
+                                        '1325€',
                                         style: TextStyle(
                                           color: Colors.amber,
                                           fontSize: 30,
@@ -178,7 +198,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                       HapticFeedback.lightImpact();
                                     },
                                     child: Container(
-                                      height: size.width / 10,
+                                      height: size.width / 6,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -186,7 +206,7 @@ class _CompanyPageState extends State<CompanyPage> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'from PayAVisit users',
+                                        'a month, bringing in around 47 clients a month',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -445,15 +465,11 @@ class _CompanyPageState extends State<CompanyPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width / 2,
                     height: 5,
                     color: Colors.amber),
                 Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: 5,
-                    color: Colors.purple),
-                Container(
-                    width: MediaQuery.of(context).size.width / 3,
+                    width: MediaQuery.of(context).size.width / 2,
                     height: 5,
                     color: Colors.red),
               ],
@@ -471,9 +487,7 @@ class _CompanyPageState extends State<CompanyPage> {
                       icon: Icon(Icons.money_off, color: Colors.white),
                       onPressed: () {
                         _onItemTapped(0);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AreYouSurePage()),);
+                        dialog();
                       },
                     ),
                     Text('Unsubscribe',
@@ -482,44 +496,24 @@ class _CompanyPageState extends State<CompanyPage> {
                     Text('', style: TextStyle(fontSize: 5)),
                   ],
                 ),
+
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     IconButton(
                       alignment: Alignment.bottomCenter,
                       constraints: BoxConstraints(maxHeight: 30),
-                      icon: Icon(Icons.theater_comedy,
-                          color: Colors.white),
-                      onPressed: () {
-                        _onItemTapped(1);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddEventPage()),);
-                      },
-                    ),
-                    Text('Add Event',
-                        style: TextStyle(
-                            color: Colors.white)),
-                    Text('', style: TextStyle(fontSize: 5)),
-                  ],
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    IconButton(
-                      alignment: Alignment.bottomCenter,
-                      constraints: BoxConstraints(maxHeight: 30),
-                      icon: Icon(Icons.exit_to_app,
+                      icon: Icon(Icons.cancel_outlined,
                           color: Colors.white),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => CompanyPage()),
                         );
                         _onItemTapped(2);
                       },
                     ),
-                    Text('Logout',
+                    Text('Cancel That',
                         style: TextStyle(
                             color: Colors.white)),
                     Text('', style: TextStyle(fontSize: 5)),
@@ -530,6 +524,49 @@ class _CompanyPageState extends State<CompanyPage> {
             ),
           ])),
     );
+  }
+
+  Future<dynamic> dialog() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Colors.grey.shade900,
+          content: Text(
+            "Our team will get in touch with you to finish the process of unsubscription.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.amber,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          actions: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ElevatedButton(
+                child: Text(
+                  "Close",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+
+                  ),
+                ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all(Colors.amber),
+                    shape: MaterialStateProperty.all(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(20.0))))),
+              )
+            ])
+          ],
+        ));
   }
 
   Widget component(
@@ -566,6 +603,7 @@ class _CompanyPageState extends State<CompanyPage> {
     );
   }
 }
+
 
 class MyBehavior extends ScrollBehavior {
   @override
