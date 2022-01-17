@@ -5,6 +5,10 @@ import '../constants/borgar_list.dart';
 
 
 class RestaurantMenuPage extends StatefulWidget {
+  final String type;
+
+  const RestaurantMenuPage({Key key, this.type}) : super(key: key);
+
   @override
   _RestaurantMenuPageState createState() => _RestaurantMenuPageState();
 }
@@ -13,11 +17,27 @@ class _RestaurantMenuPageState extends State<RestaurantMenuPage> {
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
+  var list;
 
   List<Widget> itemsData = [];
 
   void getPostsData() {
-    List<dynamic> responseList = CARNES;
+    print(widget.type);
+    switch(widget.type){
+      case 'carne':
+        list = CARNES;
+        break;
+      case 'peixe':
+        list = PEIXE;
+        break;
+      case 'marisco':
+        list = MARISCO;
+        break;
+      case 'ff':
+        list = FF;
+        break;
+    };
+    List<dynamic> responseList = list;
     List<Widget> listItems = [];
     responseList.forEach((post) {
       listItems.add(Container(

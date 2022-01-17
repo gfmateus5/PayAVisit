@@ -131,7 +131,7 @@ class DB {
         'name': 'Marquês de Pombal',
         'image': 'https://stg.construir.pt/app/uploads/2020/05/marques-1.jpg',
         'position': geo.point(latitude: 38.7252702, longitude: -9.1522492).data,
-        'description': 'Fica bue bem de vermelho e branco',
+        'description': 'Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco Fica bue bem de vermelho e branco',
         'coins': '225',
         'rating': '3.5'
       },

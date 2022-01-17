@@ -103,7 +103,7 @@ const most_famous = [
 ];
 
 const historic_spots = [
-  "Castelo de S. Jorge",
+  "Castelo de São Jorge",
   "Elevador de Santa Justa",
   "Sé de Lisboa",
   "Terreiro do Paço",

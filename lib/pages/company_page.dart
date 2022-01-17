@@ -17,9 +17,9 @@ class CompanyPage extends StatefulWidget {
 void _onItemTapped(index) {
   // handles the 4 bottomBar buttons
   if (_selectedIndex == index) {
-      _selectedIndex = -1;
+    _selectedIndex = -1;
   } else {
-      _selectedIndex = index;
+    _selectedIndex = index;
 
     if (_selectedIndex == 0) {
     } else if (_selectedIndex == 1) {
@@ -66,23 +66,23 @@ class _CompanyPageState extends State<CompanyPage> {
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                 Container(
-                                      height: size.width / 10,
-                                      width: size.width / 1.25,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        'Welcome back,',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                  Container(
+                                    height: size.width / 10,
+                                    width: size.width / 1.25,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      'Welcome back,',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
+                                  ),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
@@ -472,8 +472,8 @@ class _CompanyPageState extends State<CompanyPage> {
                       onPressed: () {
                         _onItemTapped(0);
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => AreYouSurePage()),);
+                          context,
+                          MaterialPageRoute(builder: (context) => AreYouSurePage()),);
                       },
                     ),
                     Text('Unsubscribe',

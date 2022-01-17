@@ -135,7 +135,7 @@ class _StoreDetails extends State<StoreDetails> {
                       ),
                       child: InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantMenuPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RestaurantMenuPage(type: widget.type)));
                           },
                           child: Wrap(
                               children: [
@@ -196,23 +196,6 @@ class _StoreDetails extends State<StoreDetails> {
                 ),
               ),
               SizedBox(height: 10),
-              Container(
-                  height: 40,
-                  margin: EdgeInsets.only(left: 135, right: 135),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.red.shade400
-                  ),
-                  child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(
-                        Icons.close_rounded,
-                        size: 30,
-                        color: Colors.black.withOpacity(0.65),
-                      )
-                  )
-              ),
-              SizedBox(height: 10)
             ]
         )
     );
