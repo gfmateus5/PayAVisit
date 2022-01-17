@@ -49,7 +49,7 @@ class PayAVisitController extends GetxController {
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosition();
-    DB.setupDemoData();
+    //DB.setupDemoData();
     loadSpots();
     loadStores();
     loadEvents();

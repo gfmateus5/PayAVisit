@@ -1,80 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps_exemplo/pages/must_see_central_lisbon.dart';
-class MarquesRoute extends StatefulWidget {
+import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
+
+class RoutesPage extends StatefulWidget {
+  final String name;
+  final List<String> spots;
+
+  const RoutesPage({Key key, this.name, this.spots}) : super(key: key);
+
   @override
-  _MarquesRoute createState() => _MarquesRoute();
+  State<RoutesPage> createState() => _RoutesPageState();
 }
-class QuickRoute {
-  String text;
-  String url;
-  String money;
 
-  QuickRoute({this.text, this.url, this.money});
-}
-class _MarquesRoute extends State<MarquesRoute> {
+class _RoutesPageState extends State<RoutesPage> {
+  List<Map<String, dynamic>> filteredSpots = [];
 
-  List<QuickRoute> spots = [
-    QuickRoute(text: 'Praça do Marquês de Pombal', url: 'https://stg.construir.pt/app/uploads/2020/05/marques-1.jpg', money: '150'),
-    QuickRoute(text: 'Parque Eduardo VII', url: 'https://photo620x400.mnstatic.com/913bb875d1cbb7c9ccde2bd4a8daffec/parque-eduardo-vii.jpg', money: '350'),
-    QuickRoute(text: 'Jardim Gulbenkian', url: 'https://www.nit.pt/wp-content/uploads/2019/03/1679091c5a880faf6fb5e6087eb1b2dc.jpg', money: '550')
-  ];
+  filterSpots() {
+    PayAVisitController.to.spots.docs.forEach((spot) => {
+          if (widget.spots.contains(spot["name"]))
+            filteredSpots.add(spot.data())
+        });
+  }
 
   @override
   void initState() {
+    filterSpots();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           toolbarHeight: 55,
-          title: Text("Marquês de Pombal", style: TextStyle(color: Colors.black, fontSize: 22)),
+          title: Text(widget.name,
+              style: TextStyle(color: Colors.black, fontSize: 22)),
           centerTitle: true,
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
                 gradient: LinearGradient(
-                    colors: [Colors.red,Colors.redAccent],
+                    colors: [Colors.red, Colors.redAccent],
                     begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter
-                )
-            ),
+                    end: Alignment.topCenter)),
           ),
         ),
         body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: new AssetImage('assets/login_background.png'),
-                  fit: BoxFit.cover
-                // #Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
-              ),
+                  fit: BoxFit.cover),
             ),
             child: Column(
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: spots.length,
-                    itemBuilder: (BuildContext ctx, int index){
+                    itemCount: filteredSpots.length,
+                    itemBuilder: (BuildContext ctx, int index) {
                       return Container(
                           margin: EdgeInsets.all(15),
                           height: 200,
                           child: InkWell(
                               onTap: () {
+                                showDialog(
+                                    context: context, builder: (context) => null
+                                    //SpotDetails(filteredSpots.elementAt(index)["name"])
+                                    );
                               },
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Positioned.fill( //guarantees the image fills the stack area
+                                  Positioned.fill(
+                                      //guarantees the image fills the stack area
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(spots[index].url, fit: BoxFit.cover),
-                                      )
-                                  ),
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(
+                                        filteredSpots.elementAt(index)["image"],
+                                        fit: BoxFit.cover),
+                                  )),
                                   Positioned(
                                       bottom: 0,
                                       left: 0,
@@ -84,36 +91,32 @@ class _MarquesRoute extends State<MarquesRoute> {
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                                 bottomLeft: Radius.circular(15),
-                                                bottomRight: Radius.circular(15)
-                                            ),
+                                                bottomRight:
+                                                    Radius.circular(15)),
                                             gradient: LinearGradient(
                                                 begin: Alignment.bottomCenter,
                                                 end: Alignment.topCenter,
                                                 colors: [
                                                   Colors.black.withOpacity(0.3),
                                                   Colors.transparent
-                                                ]
-                                            )
-                                        ),
-                                      )
-                                  ),
+                                                ])),
+                                      )),
                                   Positioned(
                                     bottom: 13.5,
-                                    left: 20,
-                                    right: 20,
+                                    left: 25,
+                                    right: 25,
                                     child: Container(
                                       height: 40,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           gradient: LinearGradient(
                                               begin: Alignment.centerLeft,
                                               end: Alignment.centerRight,
                                               colors: [
                                                 Colors.black.withOpacity(0.3),
                                                 Colors.black.withOpacity(0.4)
-                                              ]
-                                          )
-                                      ),
+                                              ])),
                                     ),
                                   ),
                                   Positioned(
@@ -123,24 +126,25 @@ class _MarquesRoute extends State<MarquesRoute> {
                                     child: Container(
                                       height: 40,
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           gradient: LinearGradient(
                                               begin: Alignment.centerLeft,
                                               end: Alignment.centerRight,
                                               colors: [
                                                 Colors.black.withOpacity(0.3),
                                                 Colors.black.withOpacity(0.4)
-                                              ]
-                                          )
-                                      ),
+                                              ])),
                                       child: Row(
                                         children: [
-                                          Text('  ' + spots[index].money,
+                                          Text(
+                                            '  ' +
+                                                filteredSpots
+                                                    .elementAt(index)["coins"],
                                             textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 25
-                                            ),
+                                                fontSize: 25),
                                           ),
                                           Icon(
                                             Icons.attach_money,
@@ -157,27 +161,24 @@ class _MarquesRoute extends State<MarquesRoute> {
                                       alignment: FractionalOffset.bottomCenter,
                                       child: Row(
                                         children: [
-                                          Text(spots[index].text,
+                                          Text(
+                                            filteredSpots
+                                                .elementAt(index)["name"],
                                             textAlign: TextAlign.end,
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 25
-                                            ),
+                                                fontSize: 25),
                                           )
                                         ],
                                       ),
                                     ),
                                   ),
                                 ],
-                              )
-                          )
-                      );
+                              )));
                     },
                   ),
                 )
               ],
-            )
-        )
-    );
+            )));
   }
 }

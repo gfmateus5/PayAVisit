@@ -1,13 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_exemplo/constants/routes.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
-import 'package:flutter_google_maps_exemplo/pages/route_page.dart';
-import 'package:flutter_google_maps_exemplo/widgets/events/event_list.dart';
+import 'package:flutter_google_maps_exemplo/widgets/list_builder.dart';
 import 'package:flutter_google_maps_exemplo/widgets/nav_bar.dart';
-import 'package:flutter_google_maps_exemplo/widgets/spots/spot_list.dart';
-import 'package:flutter_google_maps_exemplo/widgets/stores/store_list.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -46,22 +43,10 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
 
       if (_selectedIndex == 0) {
         PayAVisitController.to.filterSpots();
-        Get.bottomSheet(
-          SpotList(PayAVisitController.to.spots),
-          barrierColor: Colors.transparent,
-        );
       } else if (_selectedIndex == 1) {
         PayAVisitController.to.filterStores();
-        Get.bottomSheet(
-          StoreList(PayAVisitController.to.stores),
-          barrierColor: Colors.transparent,
-        );
       } else if (_selectedIndex == 2) {
         PayAVisitController.to.filterEvents();
-        Get.bottomSheet(
-          EventList(PayAVisitController.to.events),
-          barrierColor: Colors.transparent,
-        );
       }
     }
   }
@@ -325,7 +310,9 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RoutePage()),
+                          MaterialPageRoute(
+                              builder: (context) => ListBuilder(
+                                  title: "Types of Routes", list: route_types)),
                         );
                       },
                       icon: Icon(Icons.alt_route_outlined,

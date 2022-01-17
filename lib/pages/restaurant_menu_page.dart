@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'borgar_list.dart';
+import '../constants/borgar_list.dart';
 
 
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../contract_linking.dart';
-import '../open_painter.dart';
 
 class EventDetails extends StatelessWidget {
   final String name;
@@ -18,9 +17,6 @@ class EventDetails extends StatelessWidget {
     return Container(
       color: Colors.grey.shade900,
       child: Wrap(children: [
-        CustomPaint(
-          painter: OpenPainter(MediaQuery.of(context).size.width, 10, Colors.pink),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
