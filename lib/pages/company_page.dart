@@ -59,54 +59,12 @@ class _CompanyPageState extends State<CompanyPage> {
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaY: 0, sigmaX: 0),
                             child: SizedBox(
-                              width: size.width * .9,
+                              //width: size.width * .9,
                               child: Column(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () {
-                                      HapticFeedback.lightImpact();
-                                    },
-                                    child: Container(
+                                 Container(
                                       height: size.width / 10,
                                       width: size.width / 1.25,
                                       alignment: Alignment.center,
@@ -123,8 +81,6 @@ class _CompanyPageState extends State<CompanyPage> {
                                         ),
                                       ),
                                     ),
-                                  ),
-
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,

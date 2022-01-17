@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
+import 'package:flutter_google_maps_exemplo/widgets/spots/spot_details.dart';
 
 class RoutesPage extends StatefulWidget {
   final String name;
@@ -65,11 +66,17 @@ class _RoutesPageState extends State<RoutesPage> {
                           margin: EdgeInsets.all(15),
                           height: 200,
                           child: InkWell(
-                              onTap: () {
+                              onTap: () async {
+                                var distance =
+                                    await PayAVisitController.calculateDistance(
+                                        filteredSpots.elementAt(
+                                            index)['position']['geopoint']);
+
                                 showDialog(
-                                    context: context, builder: (context) => null
-                                    //SpotDetails(filteredSpots.elementAt(index)["name"])
-                                    );
+                                    context: context,
+                                    builder: (context) => SpotDetails(
+                                        spot: filteredSpots.elementAt(index),
+                                        distance: distance));
                               },
                               child: Stack(
                                 alignment: Alignment.center,

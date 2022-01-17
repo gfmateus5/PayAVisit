@@ -136,12 +136,8 @@ class PayAVisitController extends GetxController {
       case 'spot':
         Get.dialog(
           SpotDetails(
-            name: spot['name'],
-            image: spot['image'],
-            distance: distance,
-            description: spot['description'],
-            coins: spot['coins'],
-            rating: spot['rating'],
+            spot: spot,
+            distance: distance
           ),
           barrierColor: Colors.transparent,
         );
@@ -173,11 +169,12 @@ class PayAVisitController extends GetxController {
     }
   }
 
-  static double calculateDistance(spot_position) {
+  static Future<double> calculateDistance(spot_position) async {
+    var currentPosition = await Geolocator.getCurrentPosition();
     var p = 0.017453292519943295;
     var c = cos;
-    var lat1 = _currentPosition.latitude;
-    var lon1 = _currentPosition.longitude;
+    var lat1 = currentPosition.latitude;
+    var lon1 = currentPosition.longitude;
     var lat2 = spot_position.latitude;
     var lon2 = spot_position.longitude;
 

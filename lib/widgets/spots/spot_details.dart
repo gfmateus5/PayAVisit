@@ -2,20 +2,22 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../contract_linking.dart';
 
-class SpotDetails extends StatelessWidget {
-  final String name;
-  final String image;
+class SpotDetails extends StatefulWidget {
+  final Map<String, dynamic> spot;
   final double distance;
-  final String description;
-  final String coins;
-  final String rating;
 
-  const SpotDetails({Key key, this.name, this.image, this.distance, this.description, this.coins, this.rating})
-      : super(key: key);
+  const SpotDetails({Key key,this.spot, this.distance}) : super(key: key);
+
+  @override
+  State<SpotDetails> createState() => _SpotDetailsState();
+}
+
+class _SpotDetailsState extends State<SpotDetails> {
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class SpotDetails extends StatelessWidget {
             SizedBox(height: 15),
             Padding(
               padding: EdgeInsets.only(left: 15, right: 15),
-              child: Text(name, style: TextStyle(
+              child: Text(widget.spot["name"], style: TextStyle(
                 color: Colors.white,
                 fontSize: 27,
                 fontWeight: FontWeight.bold,
@@ -56,7 +58,7 @@ class SpotDetails extends StatelessWidget {
                             bottomRight: Radius.circular(20),
                             bottomLeft: Radius.circular(20),
                         ),
-                        child: Image.network(image, fit: BoxFit.cover),
+                        child: Image.network(widget.spot["image"], fit: BoxFit.cover),
                       )
                   ),
                   Container(
@@ -69,7 +71,7 @@ class SpotDetails extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Text(rating + ' ',
+                        Text(widget.spot["rating"] + ' ',
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.white,
@@ -97,13 +99,13 @@ class SpotDetails extends StatelessWidget {
                   height: 40,
                   width: 160,
                   decoration: BoxDecoration(
-                    color: distance < 2000 ? Colors.amber : Colors.grey,
+                    color: widget.distance < 2000 ? Colors.amber : Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: InkWell(
                     onTap: () =>
                     {
-                      if (distance < 2000){
+                      if (widget.distance < 2000){
                         Navigator.pop(context, contractLink.writeContract(contractLink.addDepositAmount, [BigInt.two]))
                       } else {
                         Navigator.pop(context)
@@ -111,7 +113,7 @@ class SpotDetails extends StatelessWidget {
                     },
                     child: Wrap(
                       children: [
-                        Text('Redeem ' + coins,
+                        Text('Redeem ' + widget.spot["coins"],
                           style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
@@ -146,7 +148,7 @@ class SpotDetails extends StatelessWidget {
             SizedBox(height: 22),
             Container(
               margin: EdgeInsets.only(left: 35, right: 35, bottom: 15),
-              child: Text(description, style: TextStyle(
+              child: Text(widget.spot["description"], style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
