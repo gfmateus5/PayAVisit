@@ -60,47 +60,79 @@ class PayAVisitController extends GetxController {
 
   filterSpots() async {
     removeMarkers();
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
+    _spots.docs.forEach(
+        (spot) => addMarker(spot, _iconSpots, showSpotDetails(spot.data())));
   }
 
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
     _spots = await DB.get().collection('spots_skr').get();
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
+    _spots.docs.forEach(
+        (spot) => addMarker(spot, _iconSpots, showSpotDetails(spot.data())));
+  }
+
+  Future<Widget> showSpotDetails(spot) async {
+    double distance = await calculateDistance(spot['position']['geopoint']);
+    return SpotDetails(spot: spot, distance: distance);
   }
 
   // ----------------------------- Stores --------------------------------
 
   filterStores() async {
     removeMarkers();
-    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
+    _stores.docs.forEach((store) =>
+        addMarker(store, _iconStores, showStoreDetails(store.data())));
   }
 
   loadStores() async {
     _iconStores = await getBytesFromAsset('assets/store-ic.png', 64);
     _stores = await DB.get().collection('stores_skr').get();
-    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
+    _stores.docs.forEach((store) =>
+        addMarker(store, _iconStores, showStoreDetails(store.data())));
+  }
+
+  Future<Widget> showStoreDetails(store) async {
+    double distance = await calculateDistance(store['position']['geopoint']);
+    return StoreDetails(
+        name: store['name'],
+        image: store['image'],
+        distance: distance,
+        rating: store['rating'],
+        description: store['description'],
+        type: store['type'],
+        price: store['price']);
   }
 
   // ----------------------------- Events --------------------------------
 
   filterEvents() async {
     removeMarkers();
-    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
+    _events.docs.forEach((event) =>
+        addMarker(event, _iconEvents, showEventDetails(event.data())));
   }
 
   loadEvents() async {
     _iconEvents = await getBytesFromAsset('assets/event-ic.png', 64);
     _events = await DB.get().collection('events_test2').get();
-    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
+    _events.docs.forEach((event) =>
+        addMarker(event, _iconEvents, showEventDetails(event.data())));
+  }
+
+  Future<Widget> showEventDetails(event) async {
+    double distance = await calculateDistance(event['position']['geopoint']);
+    return EventDetails(
+        name: event['name'], image: event['image'], distance: distance);
   }
 
   // ----------------------------- Markers --------------------------------
 
   displayMarkers() {
-    _stores.docs.forEach((store) => addMarker(store, _iconStores, 'store'));
-    _events.docs.forEach((event) => addMarker(event, _iconEvents, 'event'));
-    _spots.docs.forEach((spot) => addMarker(spot, _iconSpots, 'spot'));
+    _stores.docs.forEach((store) =>
+        addMarker(store, _iconStores, showStoreDetails(store.data())));
+    _events.docs.forEach((event) =>
+        addMarker(event, _iconEvents, showEventDetails(event.data())));
+    _spots.docs.forEach(
+        (spot) => addMarker(spot, _iconSpots, showSpotDetails(spot.data())));
   }
 
   removeMarkers() {
@@ -108,7 +140,7 @@ class PayAVisitController extends GetxController {
     update();
   }
 
-  addMarker(spot, icon, type) async {
+  addMarker(spot, icon, widget) async {
     GeoPoint point = spot.get('position.geopoint');
     print(spot.get('name'));
 
@@ -118,53 +150,13 @@ class PayAVisitController extends GetxController {
         position: LatLng(point.latitude, point.longitude),
         infoWindow: InfoWindow(title: spot.get('name')),
         icon: BitmapDescriptor.fromBytes(icon),
-        onTap: () => showDetails(spot.data(), type),
+        onTap: () async => Get.dialog(await widget),
       ),
     );
     update();
   }
 
   // ------------------------------ Aux ---------------------------------
-
-  showDetails(spot, type) async {
-    double distance = await calculateDistance(spot['position']['geopoint']);
-
-    switch (type) {
-      case 'spot':
-        Get.dialog(
-          SpotDetails(
-            spot: spot,
-            distance: distance
-          ),
-          barrierColor: Colors.transparent,
-        );
-        break;
-      case 'event':
-        Get.bottomSheet(
-          EventDetails(
-            name: spot['name'],
-            image: spot['image'],
-            distance: distance
-          ),
-          barrierColor: Colors.transparent,
-        );
-        break;
-      case 'store':
-        Get.dialog(
-          StoreDetails(
-            name: spot['name'],
-            image: spot['image'],
-            distance: distance,
-            rating: spot['rating'],
-            description: spot['description'],
-            type: spot['type'],
-            price: spot['price']
-          ),
-          barrierColor: Colors.transparent,
-        );
-        break;
-    }
-  }
 
   static Future<double> calculateDistance(spot_position) async {
     var currentPosition = await Geolocator.getCurrentPosition();
@@ -218,7 +210,7 @@ class PayAVisitController extends GetxController {
           'You need to authorize the location access in smartphone settings.');
     }
 
-    return Geolocator.getCurrentPosition();;
+    return Geolocator.getCurrentPosition();
   }
 
   getPosition() async {
