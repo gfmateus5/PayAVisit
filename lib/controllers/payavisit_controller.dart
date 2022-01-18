@@ -18,8 +18,6 @@ class PayAVisitController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
 
-  static Position _currentPosition;
-
   QuerySnapshot<Map<String, dynamic>> _spots;
   QuerySnapshot<Map<String, dynamic>> _stores;
   QuerySnapshot<Map<String, dynamic>> _events;
@@ -130,7 +128,6 @@ class PayAVisitController extends GetxController {
 
   showDetails(spot, type) async {
     double distance = await calculateDistance(spot['position']['geopoint']);
-    print(distance);
 
     switch (type) {
       case 'spot':
@@ -221,8 +218,7 @@ class PayAVisitController extends GetxController {
           'You need to authorize the location access in smartphone settings.');
     }
 
-    _currentPosition = await Geolocator.getCurrentPosition();
-    return _currentPosition;
+    return Geolocator.getCurrentPosition();;
   }
 
   getPosition() async {
