@@ -1,9 +1,10 @@
 import 'dart:ui';
-
+import 'package:flutter_google_maps_exemplo/constants/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
+import 'package:flutter_google_maps_exemplo/pages/routes_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_google_maps_exemplo/widgets/list_builder.dart';
 
 import '../../contract_linking.dart';
 
@@ -85,6 +86,24 @@ class _SpotDetailsState extends State<SpotDetails> {
                         ),
                       ],
                     ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 14, top: 10, right: 260),
+                    height: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.black.withOpacity(0)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.favorite_border,
+                          size: 35,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   )
                 ]
               ),
@@ -97,7 +116,7 @@ class _SpotDetailsState extends State<SpotDetails> {
                   padding: EdgeInsets.only(left: 7),
                   alignment: FractionalOffset.center,
                   height: 40,
-                  width: 160,
+                  width: 135,
                   decoration: BoxDecoration(
                     color: widget.distance < 2000 ? Colors.amber : Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -114,13 +133,13 @@ class _SpotDetailsState extends State<SpotDetails> {
                     child: Wrap(
                       children: [
                         Text('Redeem ' + widget.spot["coins"],
-                          style: TextStyle( color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                          style: TextStyle( color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Icon(
                           Icons.attach_money,
                           color: Colors.white,
-                          size: 23,
+                          size: 20,
                         )
                       ]
                     )
@@ -130,17 +149,33 @@ class _SpotDetailsState extends State<SpotDetails> {
                   margin: EdgeInsets.only(left: 15),
                   alignment: FractionalOffset.center,
                   height: 40,
-                  width: 50,
+                  width: 135,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.red
                   ),
                   child: InkWell(
-                    child: Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 30,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => ListBuilder(
+                              title: "Types of Routes", list: route_types)),
+                      );
+                    },
+                    child: Wrap(
+
+                        children: [
+
+                      Text('Check Routes',
+                      style: TextStyle( color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
+                      Icon(
+                        Icons.alt_route,
+                        color: Colors.white,
+                        size: 20,
+                      )
+    ]
+                  ),
                   ),
                 )
               ]
