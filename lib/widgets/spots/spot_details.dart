@@ -20,11 +20,72 @@ class SpotDetails extends StatefulWidget {
 
 class _SpotDetailsState extends State<SpotDetails> {
 
+
+  far() {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(
+            color: Colors.grey.shade800,
+            width: 6,
+          )
+      ),
+      backgroundColor: Colors.grey.shade900,
+      children: <Widget> [
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.all(10),
+          child: Text('Too far away to be able to redeem!', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 23), textAlign: TextAlign.center),
+        )
+      ]
+    );
+  }
+
+  redeemed() {
+    return SimpleDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            side: BorderSide(
+              color: Colors.grey.shade800,
+              width: 6,
+            )
+        ),
+        backgroundColor: Colors.grey.shade900,
+        children: <Widget> [
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 15, bottom: 10, left: 15, right: 15),
+            child: Wrap(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('From visiting', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 23), textAlign: TextAlign.center),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(widget.spot["name"], style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 23), textAlign: TextAlign.center),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('you received ' + widget.spot["coins"], style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 23), textAlign: TextAlign.center),
+                    Icon(Icons.run_circle, size: 25, color: Colors.white)
+                  ],
+                )
+              ],
+            )
+          )
+        ]
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var contractLink = Provider.of<ContractLinking>(context);
-    print(MediaQuery.of(context).size.height);
-    print(MediaQuery.of(context).size.width);
     return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: SimpleDialog(
@@ -63,7 +124,6 @@ class _SpotDetailsState extends State<SpotDetails> {
                       )
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 9),
                     margin: EdgeInsets.only(left: 260, top: 10, right: 14),
                     height: 30,
                     decoration: BoxDecoration(
@@ -71,6 +131,7 @@ class _SpotDetailsState extends State<SpotDetails> {
                       color: Colors.black.withOpacity(0.4)
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(widget.spot["rating"] + ' ',
                           style: TextStyle(
@@ -88,12 +149,8 @@ class _SpotDetailsState extends State<SpotDetails> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 14, top: 10, right: 260),
+                    margin: EdgeInsets.only(top: 10, right: 260),
                     height: 30,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.black.withOpacity(0)
-                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -110,72 +167,70 @@ class _SpotDetailsState extends State<SpotDetails> {
             ),
             SizedBox(height: 22),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 22),
-                  padding: EdgeInsets.only(left: 7),
-                  alignment: FractionalOffset.center,
                   height: 40,
-                  width: 135,
+                  width: 140,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: widget.distance < 2000 ? Colors.amber : Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: InkWell(
-                    onTap: () =>
+                    onTap: ()
                     {
                       if (widget.distance < 2000){
-                        Navigator.pop(context, contractLink.writeContract(contractLink.addDepositAmount, [BigInt.two]))
-                      } else {
-                        Navigator.pop(context)
+                        Navigator.pop(context, contractLink.writeContract(contractLink.addDepositAmount, [BigInt.parse(widget.spot["coins"])]));
+                        showDialog(context: context, builder: (context) => redeemed());
+                      }
+                      else {
+                        showDialog(context: context, builder: (context) => far());
                       }
                     },
-                    child: Wrap(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Redeem ' + widget.spot["coins"],
+                        Text('Redeem ' + widget.spot["coins"] + ' ',
                           style: TextStyle( color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Icon(
-                          Icons.attach_money,
+                          Icons.run_circle,
                           color: Colors.white,
-                          size: 20,
+                          size: 22,
                         )
                       ]
                     )
                   ),
                 ),
+                SizedBox(width: 15),
                 Container(
-                  margin: EdgeInsets.only(left: 15),
-                  alignment: FractionalOffset.center,
                   height: 40,
-                  width: 135,
+                  width: 140,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     color: Colors.red
                   ),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => ListBuilder(
-                              title: "Types of Routes", list: route_types)),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ListBuilder(title: "Types of Routes", list: route_types)));
                     },
-                    child: Wrap(
-
-                        children: [
-
-                      Text('Check Routes',
-                      style: TextStyle( color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Check Routes',
+                          style: TextStyle( color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Icon(
+                          Icons.alt_route,
+                          color: Colors.white,
+                          size: 20,
+                        )
+                      ]
                     ),
-                      Icon(
-                        Icons.alt_route,
-                        color: Colors.white,
-                        size: 20,
-                      )
-    ]
-                  ),
                   ),
                 )
               ]

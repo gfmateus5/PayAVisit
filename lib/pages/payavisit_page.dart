@@ -106,24 +106,25 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.amber, fontSize: 20)),
         SizedBox(height: 15),
-        Text('\$${balance}',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.amber,
-                fontSize: 40,
-                fontWeight: FontWeight.bold)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${balance} ', textAlign: TextAlign.center, style: TextStyle(color: Colors.amber, fontSize: 40, fontWeight: FontWeight.bold)),
+            Icon(Icons.run_circle, size: 35, color: Colors.amber)
+          ],
+        ),
         Obx(
-              () => Slider(
-              value: moneyToSpend.value,
-              min: 0,
-              max: balance.toDouble(),
-              divisions: balance == 0 ? 1 : balance,
-              label: moneyToSpend.value.toString(),
-              onChanged: (value) {
-                setState(() {
-                  moneyToSpend.value = value;
-                });
-              }),
+          () => Slider(
+          value: moneyToSpend.value,
+          min: 0,
+          max: balance.toDouble(),
+          divisions: balance == 0 ? 1 : balance~/5,
+          label: moneyToSpend.value.toString(),
+          onChanged: (value) {
+            setState(() {
+              moneyToSpend.value = value;
+            });
+          }),
         ),
         SizedBox(height: 10),
         Row(
@@ -161,7 +162,13 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
       backgroundColor: Colors.grey.shade900,
       children: [
         SizedBox(height: 15),
-        Text('Scan QR Code to pay ' + moneyToSpend.value.toString() + 'PAU', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Scan QR Code to pay ' + moneyToSpend.value.toString() + ' ', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+            Icon(Icons.run_circle, size: 22, color: Colors.white)
+          ],
+        ),
         Container(
           margin: EdgeInsets.only(top: 20, bottom: 10, right: 25, left: 25),
           height: 200,

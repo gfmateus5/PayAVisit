@@ -122,6 +122,7 @@ class _RoutesPageState extends State<RoutesPage> {
                                   height: 40,
                                   width: 100,
                                   margin: EdgeInsets.only(bottom: 127, left: 250),
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     gradient: LinearGradient(
@@ -132,20 +133,16 @@ class _RoutesPageState extends State<RoutesPage> {
                                         Colors.black.withOpacity(0.4)
                                       ]
                                     ),
-                                    /*border: Border.all(
-                                        width: 3,
-                                        color: Colors.grey.shade900
-                                    )*/
                                   ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('  ' + filteredSpots.elementAt(index)["coins"],
+                                      Text(filteredSpots.elementAt(index)["coins"] + ' ',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
                                       ),
                                       Icon(
-                                        Icons.attach_money,
+                                        Icons.run_circle,
                                         size: 30,
                                         color: Colors.amber,
                                       )

@@ -175,9 +175,9 @@ class _StoreDetails extends State<StoreDetails> {
                                   textAlign: TextAlign.center,
                                 ),
                                 Icon(
-                                  Icons.attach_money,
+                                  Icons.run_circle,
                                   color: Colors.white,
-                                  size: 23,
+                                  size: 25,
                                 )
                               ]
                           )
@@ -244,7 +244,8 @@ class _StoreDetails extends State<StoreDetails> {
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('${balance}€', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center)
+                          Text('${balance} ', style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                          Icon(Icons.run_circle, size: 40, color: Colors.white)
                         ]
                     )
                   ]
@@ -266,15 +267,15 @@ class _StoreDetails extends State<StoreDetails> {
       backgroundColor: Colors.grey.shade900,
       children: [
         Container(
-            margin: EdgeInsets.only(top: 15, bottom: 10, left: 10, right: 10),
-            alignment: Alignment.center,
-            child: Text('Confirm ' + moneyToSpend.value.toString() + '€ transaction to ' + widget.name + '?', style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-              textAlign: TextAlign.center,
-            )
+          margin: EdgeInsets.only(top: 15, bottom: 10, left: 10, right: 10),
+          alignment: Alignment.center,
+          child: Text('Confirm transaction to ' + widget.name + '?', style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(height: 20),
         Row(
@@ -374,12 +375,13 @@ class _StoreDetails extends State<StoreDetails> {
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.amber, fontSize: 20)),
         SizedBox(height: 15),
-        Text('\$${balance}',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: Colors.amber,
-                fontSize: 40,
-                fontWeight: FontWeight.bold)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${balance} ', textAlign: TextAlign.center, style: TextStyle(color: Colors.amber, fontSize: 40, fontWeight: FontWeight.bold)),
+            Icon(Icons.run_circle, size: 35, color: Colors.amber)
+          ],
+        ),
         Obx(
               () => Slider(
               value: moneyToSpend.value,
