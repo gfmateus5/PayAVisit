@@ -35,7 +35,6 @@ class ListBuilder extends StatelessWidget {
               image: DecorationImage(
                   image: new AssetImage('assets/login_background.png'),
                   fit: BoxFit.cover
-                  // #Image Url: https://unsplash.com/photos/bOBM8CB4ZC4
                   ),
             ),
             child: Column(
@@ -45,8 +44,19 @@ class ListBuilder extends StatelessWidget {
                     itemCount: this.list.length,
                     itemBuilder: (BuildContext ctx, int index) {
                       return Container(
-                          margin: EdgeInsets.all(15),
+                          margin: EdgeInsets.only(left: 15, right: 15, top: 20),
                           height: 200,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                  width: 4,
+                                  color: Colors.grey.shade600
+                              ),
+                              image: DecorationImage(
+                                  image: NetworkImage(this.list[index]["image"]),
+                                  fit: BoxFit.cover
+                              )
+                          ),
                           child: InkWell(
                               onTap: () {
                                 var widget;
@@ -67,74 +77,50 @@ class ListBuilder extends StatelessWidget {
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  Positioned.fill(
-                                      //guarantees the image fills the stack area
-                                      child: ClipRRect(
+                                  Container(
+                                    height: 200,
+                                    decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        child: Image.network(
-                                          this.list[index]["image"],
-                                          fit: BoxFit.cover),
-                                  )),
-                                  Positioned(
-                                      bottom: 0,
-                                      left: 0,
-                                      right: 0,
-                                      child: Container(
-                                        height: 170,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(15),
-                                                bottomRight:
-                                                    Radius.circular(15)),
-                                            gradient: LinearGradient(
-                                                begin: Alignment.bottomCenter,
-                                                end: Alignment.topCenter,
-                                                colors: [
-                                                  Colors.black.withOpacity(0.3),
-                                                  Colors.transparent
-                                                ])),
-                                      )),
-                                  Positioned(
-                                    bottom: 13.5,
-                                    left: 35,
-                                    right: 35,
-                                    child: Container(
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
-                                              colors: [
-                                                Colors.black.withOpacity(0.3),
-                                                Colors.black.withOpacity(0.4)
-                                              ])),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter,
+                                            colors: [
+                                              Colors.black.withOpacity(0.3),
+                                              Colors.transparent
+                                            ]
+                                        )
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 20,
-                                    child: Align(
-                                      alignment: FractionalOffset.bottomCenter,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            ' ' + this.list[index]["name"],
-                                            textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25),
-                                          )
-                                        ],
+                                  Container(
+                                    height: 50,
+                                    width: 300,
+                                    margin: EdgeInsets.only(top: 120),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: [
+                                            Colors.black.withOpacity(0.1),
+                                            Colors.black.withOpacity(0.3)
+                                          ]
                                       ),
+                                    ),
+                                    child: Text(this.list[index]["name"], textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ],
-                              )));
+                              )
+                          )
+                      );
                     },
                   ),
                 )
               ],
-            )));
+            )
+        )
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_google_maps_exemplo/constants/routes.dart';
 import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
 import 'package:flutter_google_maps_exemplo/pages/add_spot_page.dart';
@@ -53,6 +54,13 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
 
   pay() {
     return SimpleDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(25)),
+          side: BorderSide(
+            color: Colors.grey.shade800,
+            width: 6,
+          )
+      ),
       backgroundColor: Colors.grey.shade900,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -71,9 +79,9 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                       child: Icon(Icons.person, color: Colors.white),
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.amber),
+                          MaterialStateProperty.all(Colors.amber),
                           shape:
-                              MaterialStateProperty.all(const CircleBorder())),
+                          MaterialStateProperty.all(const CircleBorder())),
                     ),
                   ),
                   TextSpan(
@@ -93,9 +101,11 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
             )
           ]),
         ]),
-        Text('\n\nCurrent Balance',
+        SizedBox(height: 30),
+        Text('Current Balance',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.amber, fontSize: 20)),
+        SizedBox(height: 15),
         Text('\$${balance}',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -103,7 +113,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 fontSize: 40,
                 fontWeight: FontWeight.bold)),
         Obx(
-          () => Slider(
+              () => Slider(
               value: moneyToSpend.value,
               min: 0,
               max: balance.toDouble(),
@@ -115,29 +125,81 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 });
               }),
         ),
-        SizedBox(height: 40),
+        SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  contractLink.writeContract(contractLink.payAmount,
-                      [BigInt.from(moneyToSpend.value)]);
-                  Get.back();
-                },
-                child: Text('PAY',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 23,
-                        color: Colors.white)),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.amber),
-                    shape: MaterialStateProperty.all(
-                        const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)))))),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+                showDialog(context: context, builder: (context) => pay_verification());
+              },
+              child: Container(
+                height: 40,
+                width: 70,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(color: Colors.amber, borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Text('PAY', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23, color: Colors.white), textAlign: TextAlign.center),
+              ),
+            ),
           ],
         ),
+        SizedBox(height: 10)
+      ],
+    );
+  }
+
+  pay_verification() {
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(25)),
+      side: BorderSide(
+      color: Colors.grey.shade800,
+      width: 6,
+      )
+      ),
+      backgroundColor: Colors.grey.shade900,
+      children: [
+        SizedBox(height: 15),
+        Text('Scan QR Code to pay ' + moneyToSpend.value.toString() + 'PAU', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+        Container(
+          margin: EdgeInsets.only(top: 20, bottom: 10, right: 25, left: 25),
+          height: 200,
+          width: 200,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            image: DecorationImage(
+              image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png'),
+              fit: BoxFit.fitHeight
+            )
+          ),
+        ),
+        SizedBox(height: 15),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 40,
+              width: 150,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.amber
+              ),
+              child: InkWell(
+                onTap: () async {
+                  await contractLink.writeContract(contractLink.payAmount, [BigInt.from(moneyToSpend.value)]);
+                  var result = await contractLink.readContract(contractLink.getBalanceAmount, []);
+                  balance = result?.first?.toInt();
+                  Navigator.pop(context);
+                },
+                child: Text('FINISH', style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 15)
       ],
     );
   }
