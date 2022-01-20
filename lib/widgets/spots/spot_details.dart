@@ -2,7 +2,8 @@ import 'dart:ui';
 import 'package:flutter_google_maps_exemplo/constants/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_maps_exemplo/pages/routes_page.dart';
+import 'package:flutter_google_maps_exemplo/controllers/payavisit_controller.dart';
+import 'package:flutter_google_maps_exemplo/pages/payavisit_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_google_maps_exemplo/widgets/list_builder.dart';
 
@@ -20,6 +21,8 @@ class SpotDetails extends StatefulWidget {
 
 class _SpotDetailsState extends State<SpotDetails> {
 
+  Color color;
+  IconData icon;
 
   far() {
     return SimpleDialog(
@@ -83,8 +86,19 @@ class _SpotDetailsState extends State<SpotDetails> {
     );
   }
 
+  isFavorite(spot) {
+    return PayAVisitController.to.likedSpots.contains(spot);
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!isFavorite(widget.spot["name"])) {
+        color = Colors.white;
+        icon = Icons.favorite_border;
+    } else{
+        color = Colors.red;
+        icon = Icons.favorite;
+    }
     var contractLink = Provider.of<ContractLinking>(context);
     return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -151,15 +165,32 @@ class _SpotDetailsState extends State<SpotDetails> {
                   Container(
                     margin: EdgeInsets.only(top: 10, right: 260),
                     height: 30,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.favorite_border,
-                          size: 35,
-                          color: Colors.white,
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: () {
+                        if (!isFavorite(widget.spot["name"])) {
+                          PayAVisitController.to.likedSpots.add(widget.spot["name"]);
+                          setState(() {
+                            color = Colors.white;
+                            icon = Icons.favorite_border;
+                          });
+                        } else{
+                          PayAVisitController.to.likedSpots.remove(widget.spot["name"]);
+                          setState(() {
+                            color = Colors.red;
+                            icon = Icons.favorite;
+                          });
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            icon,
+                            size: 35,
+                            color: color,
+                          ),
+                        ],
+                      )
                     ),
                   )
                 ]

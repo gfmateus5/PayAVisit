@@ -22,6 +22,8 @@ class PayAVisitController extends GetxController {
   QuerySnapshot<Map<String, dynamic>> _stores;
   QuerySnapshot<Map<String, dynamic>> _events;
 
+  List<String> _likedSpots = [];
+
   StreamSubscription<Position> positionStream;
   GoogleMapController _mapsController;
   final markers = Set<Marker>();
@@ -33,6 +35,7 @@ class PayAVisitController extends GetxController {
   QuerySnapshot<Map<String, dynamic>> get spots => _spots;
   QuerySnapshot<Map<String, dynamic>> get stores => _stores;
   QuerySnapshot<Map<String, dynamic>> get events => _events;
+  List<String> get likedSpots => _likedSpots;
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
@@ -71,7 +74,7 @@ class PayAVisitController extends GetxController {
         (spot) => addMarker(spot, _iconSpots, showSpotDetails(spot.data())));
   }
 
-  Future<Widget> showSpotDetails(spot) async {
+  showSpotDetails(spot) async {
     double distance = await calculateDistance(spot['position']['geopoint']);
     return SpotDetails(spot: spot, distance: distance);
   }
@@ -91,7 +94,7 @@ class PayAVisitController extends GetxController {
         addMarker(store, _iconStores, showStoreDetails(store.data())));
   }
 
-  Future<Widget> showStoreDetails(store) async {
+  showStoreDetails(store) async {
     double distance = await calculateDistance(store['position']['geopoint']);
     return StoreDetails(
         name: store['name'],
@@ -118,7 +121,7 @@ class PayAVisitController extends GetxController {
         addMarker(event, _iconEvents, showEventDetails(event.data())));
   }
 
-  Future<Widget> showEventDetails(event) async {
+  showEventDetails(event) async {
     double distance = await calculateDistance(event['position']['geopoint']);
     return EventDetails(
         name: event['name'], image: event['image'], distance: distance);
