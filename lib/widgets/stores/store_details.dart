@@ -42,7 +42,7 @@ class _StoreDetails extends State<StoreDetails> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(25)),
                 side: BorderSide(
-                  color: Colors.grey.shade800,
+                  color: Colors.blue.shade300,
                   width: 6,
                 )
             ),

@@ -249,7 +249,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
                       controller.latitude.value, controller.longitude.value),
-                  zoom: 13,
+                  zoom: 15,
                 ),
                 myLocationEnabled: true,
                 markers: controller.markers,

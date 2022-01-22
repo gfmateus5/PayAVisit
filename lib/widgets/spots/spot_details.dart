@@ -106,7 +106,7 @@ class _SpotDetailsState extends State<SpotDetails> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25)),
             side: BorderSide(
-              color: Colors.grey.shade800,
+              color: Colors.amber.shade600,
               width: 6,
             )
           ),
@@ -192,7 +192,32 @@ class _SpotDetailsState extends State<SpotDetails> {
                         ],
                       )
                     ),
-                  )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 230, top: 140, right: 14),
+                    height: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.black.withOpacity(0.4)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.distance.toInt().toString() + ' m ',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Icon(
+                          Icons.directions_walk,
+                          size: 15,
+                          color: Colors.amber,
+                        ),
+                      ],
+                    ),
+                  ),
                 ]
               ),
             ),
@@ -205,13 +230,13 @@ class _SpotDetailsState extends State<SpotDetails> {
                   width: 140,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: widget.distance < 2000 ? Colors.amber : Colors.grey,
+                    color: widget.distance < 50 ? Colors.amber : Colors.grey,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                   child: InkWell(
                     onTap: ()
                     {
-                      if (widget.distance < 2000){
+                      if (widget.distance < 50){
                         Navigator.pop(context, contractLink.writeContract(contractLink.addDepositAmount, [BigInt.parse(widget.spot["coins"])]));
                         showDialog(context: context, builder: (context) => redeemed());
                       }

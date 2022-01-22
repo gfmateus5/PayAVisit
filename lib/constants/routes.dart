@@ -26,8 +26,7 @@ const quick_routes = [
       'Padrão dos Descobrimentos',
       'Mosteiro dos Jerónimos'
     ],
-    'image':
-        'https://media.iatiseguros.com/wp-content/uploads/sites/6/2020/01/28164823/panoramica-belem.jpg'
+    'image': 'https://media.iatiseguros.com/wp-content/uploads/sites/6/2020/01/28164823/panoramica-belem.jpg'
   },
   {
     'name': "Baixa-Chiado",
@@ -42,8 +41,7 @@ const quick_routes = [
   {
     'name': "Praça do Comércio",
     'spots': ['Praça do Comércio', 'Arco da Rua Augusta', 'Sé de Lisboa'],
-    'image':
-        'https://i2.wp.com/turismo.eurodicas.com.br/wp-content/uploads/2019/04/pra%C3%A7a-do-comercio-em-lisboa.jpg?fit=1360%2C907&ssl=1'
+    'image': 'https://i2.wp.com/turismo.eurodicas.com.br/wp-content/uploads/2019/04/pra%C3%A7a-do-comercio-em-lisboa.jpg?fit=1360%2C907&ssl=1'
   },
   {
     'name': "Marquês de Pombal",
@@ -52,8 +50,7 @@ const quick_routes = [
       'Parque Eduardo VII',
       'Jardim Gulbenkian'
     ],
-    'image':
-        'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/80/c0.jpg'
+    'image': 'https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/39/80/c0.jpg'
   }
 ];
 
@@ -73,32 +70,27 @@ const most_famous = [
   {
     'name': "Central Lisbon",
     'spots': most_famous_list,
-    'image':
-        'https://www.lisbonguru.com/wp-content/uploads/2017/12/praca-do-comercio.jpg'
+    'image': 'https://www.lisbonguru.com/wp-content/uploads/2017/12/praca-do-comercio.jpg'
   },
   {
     'name': "Amadora Scenic View",
     'spots': most_famous_list,
-    'image':
-        'https://upload.wikimedia.org/wikipedia/commons/9/9e/Alfragide_norte%2C_outubro_2017_%28cropped%29.jpg'
+    'image': 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Alfragide_norte%2C_outubro_2017_%28cropped%29.jpg'
   },
   {
     'name': "Get To Know Sintra",
     'spots': most_famous_list,
-    'image':
-        'https://upload.travelawaits.com/ta/uploads/2021/05/sintra-cover.jpg'
+    'image': 'https://upload.travelawaits.com/ta/uploads/2021/05/sintra-cover.jpg'
   },
   {
     'name': "Walk Around Cascais",
     'spots': most_famous_list,
-    'image':
-        'https://www.eurodicas.com.br/wp-content/uploads/2019/05/morar-em-cascais.jpg'
+    'image': 'https://www.eurodicas.com.br/wp-content/uploads/2019/05/morar-em-cascais.jpg'
   },
   {
     'name': "Margin of the Tagus",
     'spots': most_famous_list,
-    'image':
-        'https://s7a5n8m2.stackpathcdn.com/wp-content/uploads/2015/03/riotejo.jpg'
+    'image': 'https://s7a5n8m2.stackpathcdn.com/wp-content/uploads/2015/03/riotejo.jpg'
   }
 ];
 
@@ -107,7 +99,7 @@ const historic_spots = [
   "Elevador de Santa Justa",
   "Sé de Lisboa",
   "Terreiro do Paço",
-  "Chiado",
+  "Baixa-Chiado",
   "Panteão Nacional",
   "Padrão dos Descobrimentos",
   "Torre de Belém",
@@ -117,7 +109,7 @@ const historic_spots = [
   "Convento do Carmo",
   "Teatro Nacional de São Carlos",
   "Palácio das Necessidades",
-  "Palácio Nacional da Pena",
+  "Palácio da Pena",
   "Palácio de Queluz",
   "Convento de Mafra"
 ];

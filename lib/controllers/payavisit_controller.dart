@@ -23,6 +23,8 @@ class PayAVisitController extends GetxController {
   QuerySnapshot<Map<String, dynamic>> _events;
 
   List<String> _likedSpots = [];
+  List<SpotDetails> _closestSpots = [];
+  double distance;
 
   StreamSubscription<Position> positionStream;
   GoogleMapController _mapsController;
@@ -70,13 +72,21 @@ class PayAVisitController extends GetxController {
   loadSpots() async {
     _iconSpots = await getBytesFromAsset('assets/spot-ic.png', 64);
     _spots = await DB.get().collection('spots_skr').get();
-    _spots.docs.forEach(
-        (spot) => addMarker(spot, _iconSpots, showSpotDetails(spot.data())));
+    _spots.docs.forEach((spot) async {
+      addMarker(spot, _iconSpots, showSpotDetails(spot.data()));
+      distance = await calculateDistance(spot.data()['position']['geopoint']);
+      _closestSpots.add(SpotDetails(spot: spot.data(), distance: distance));
+    });
   }
 
   showSpotDetails(spot) async {
-    double distance = await calculateDistance(spot['position']['geopoint']);
-    return SpotDetails(spot: spot, distance: distance);
+    distance = await calculateDistance(spot['position']['geopoint']);
+    return SpotDetails(spot: spot, distance: distance);;
+  }
+
+  closestSpots(){
+    _closestSpots.sort((a, b) => a.distance.compareTo(b.distance));
+    return _closestSpots;
   }
 
   // ----------------------------- Stores --------------------------------
@@ -95,7 +105,7 @@ class PayAVisitController extends GetxController {
   }
 
   showStoreDetails(store) async {
-    double distance = await calculateDistance(store['position']['geopoint']);
+    distance = await calculateDistance(store['position']['geopoint']);
     return StoreDetails(
         name: store['name'],
         image: store['image'],
@@ -122,9 +132,17 @@ class PayAVisitController extends GetxController {
   }
 
   showEventDetails(event) async {
-    double distance = await calculateDistance(event['position']['geopoint']);
+    distance = await calculateDistance(event['position']['geopoint']);
     return EventDetails(
-        name: event['name'], image: event['image'], distance: distance);
+      name: event['name'],
+      image: event['image'],
+      distance: distance,
+      description: event['description'],
+      date: event['date'],
+      time: event['time'],
+      duration: event['duration'],
+      by: event['by']
+    );
   }
 
   // ----------------------------- Markers --------------------------------

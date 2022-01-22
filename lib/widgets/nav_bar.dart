@@ -10,7 +10,7 @@ class NavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(PayAVisitController.to.likedSpots);
+    print(PayAVisitController.to.spots);
     return Drawer(
       backgroundColor: Colors.transparent,
         child: Container(
@@ -76,7 +76,30 @@ class NavBar extends StatelessWidget {
                   ),
                 )
               ),
-              SizedBox(height: 380),
+              Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  width: 250,
+                  margin: EdgeInsets.only(top: 30, left: 10, right: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      color: Colors.grey.shade800.withOpacity(0.5)
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => RoutesPage(name: "Closest to you", spots: ["all"])));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Closest to you', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                        SizedBox(width: 10),
+                        Icon(Icons.directions_walk, size: 25, color: Colors.white,)
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 300),
               Container(
                 alignment: Alignment.center,
                 height: 50,

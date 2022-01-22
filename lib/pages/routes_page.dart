@@ -16,9 +16,15 @@ class _RoutesPageState extends State<RoutesPage> {
   List<Map<String, dynamic>> filteredSpots = [];
 
   filterSpots() {
-    PayAVisitController.to.spots.docs.forEach((spot) => {
-      if (widget.spots.contains(spot["name"]))
-        filteredSpots.add(spot.data())
+    PayAVisitController.to.closestSpots().forEach((element) {
+      if (widget.spots.length > 0) {
+        if (widget.spots[0] == "all") {
+          filteredSpots.add(element.spot);
+        }
+        else if (widget.spots.contains(element.spot["name"])) {
+          filteredSpots.add(element.spot);
+        }
+      }
     });
   }
 
@@ -120,7 +126,7 @@ class _RoutesPageState extends State<RoutesPage> {
                                 ),
                                 Container(
                                   height: 40,
-                                  width: 100,
+                                  width: 90,
                                   margin: EdgeInsets.only(bottom: 127, left: 250),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
