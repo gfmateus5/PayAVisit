@@ -74,6 +74,12 @@ class _AddEventPageState extends State<AddEventPage> {
                                       'Description...', false),
                                   component(Icons.image_outlined,
                                       'Image URL...', false),
+                                  component(Icons.date_range,
+                                      'Date...', false),
+                                  component(Icons.access_time_outlined,
+                                      'Starting hour...', false),
+                                  component(Icons.timelapse,
+                                      'Duration...', false),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
