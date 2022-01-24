@@ -201,11 +201,51 @@ class DB {
       },
       {
         'name': 'Campo Pequeno',
-        'image': 'https://www.nit.pt/wp-content/uploads/2019/03/1679091c5a880faf6fb5e6087eb1b2dc.jpg',
+        'image': 'https://www.duranelectronica.com/english/wp-content/uploads/2018/06/campo-pequeno-bullring-lisbon-portugal.jpg',
         'position': geo.point(latitude: 38.742780, longitude: -9.145497).data,
         'description': "The brick-built Campo Pequeno bullring was opened in 1892. Inspired by the bullring in Madrid and designed in a neo-Arabic revivalist style, the Praça de Touros was totally renovated in 2006. It’s history is integral to the development of bullfighting in Portugal, a history that the museum evokes.",
         'coins': '40',
         'rating': '4.8'
+      },
+      {
+        'name': 'Estádio de S. Luís',
+        'image': 'https://www.zerozero.pt/img/estadios/393/735393_med__20201223182044_estadio_de_sao_luis.jpg',
+        'position': geo.point(latitude: 37.022413, longitude: -7.928446).data,
+        'description': "Home to the biggest club in Portugal",
+        'coins': '99',
+        'rating': '5.0'
+      },
+      {
+        'name': 'Oceanário de Lisboa',
+        'image': 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Lisboa-Oceanario.jpg',
+        'position': geo.point(latitude: 38.763351, longitude: -9.093984).data,
+        'description': "The Oceanário de Lisboa is a large public aquarium whose prestige is widely recognised, not only in Lisbon and Portugal, but also across the world. Visited by approximately 1 million people every year, the Oceanário is the most popular cultural attraction in Portugal.",
+        'coins': '45',
+        'rating': '4.2'
+      },
+      {
+        'name': 'Altice Arena',
+        'image': 'https://informacoeseservicos.lisboa.pt/fileadmin/espacos/imagens/altice_arena_1.jpg',
+        'position': geo.point(latitude: 38.768550, longitude: -9.095448).data,
+        'description': "The biggest showroom in Portugal",
+        'coins': '40',
+        'rating': '3.9'
+      },
+      {
+        'name': 'Pavilhão do Conhecimento',
+        'image': 'https://s7a5n8m2.stackpathcdn.com/wp-content/uploads/2015/09/entradapavilhaodoconhecimento.jpg',
+        'position': geo.point(latitude: 38.762269, longitude: -9.095981).data,
+        'description': "An interactive museum that was created with the goal of fostering knowledge and disseminating technological and scientific culture. To achieve this goal, various exhibitions and activities have been set up so that visitors can actively explore a variety of themes in a relaxing and fun atmosphere.",
+        'coins': '35',
+        'rating': '3.8'
+      },
+      {
+        'name': 'Torre Vasco da Gama',
+        'image': 'https://media.timeout.com/images/103613845/750/422/image.jpg',
+        'position': geo.point(latitude: 38.774809, longitude: -9.092136).data,
+        'description': "Lisbon’s tallest skyscraper for the view of the river. The Torre Vasco da Gama honours the old mariners and the city’s ties to the river in a wonderful setting.",
+        'coins': '40',
+        'rating': '4.0'
       },
     ];
 
@@ -260,6 +300,26 @@ class DB {
         'duration': '1:30',
         'by': 'Marisqueira do Chiado'
       },
+      {
+        'name': 'Os Belenenses vs Estrela da Amadora',
+        'image': 'https://static.globalnoticias.pt/dn/image.jpg?brand=DN&type=generate&guid=7515c2e2-d4e5-4bf5-9ccd-ff1e0d56db98&w=800&h=420&watermark=true&t=20190106203700',
+        'position': geo.point(latitude: 38.702300, longitude: -9.207162).data,
+        'description': 'Enjoy an exciting match between the two best teams in Lisbon.',
+        'date': '3 feb',
+        'time': '5:00 pm',
+        'duration': '2:00',
+        'by': 'Tasca Os Belenenses'
+      },
+      {
+        'name': 'Cortejo da Latada',
+        'image': 'https://imgur.com/a/8WqWsic',
+        'position': geo.point(latitude: 38.708984, longitude: -9.137916).data,
+        'description': "Take part in one of Lisbon's university life's most traditional moments, as the students parade across the city representing their course",
+        'date': '2 feb',
+        'time': '4:00 pm',
+        'duration': '3:00',
+        'by': 'Donaldo'
+      },
     ];
 
     final stores = [
@@ -268,7 +328,7 @@ class DB {
         'image': 'https://www.restoclub.ru/uploads/place_thumbnail_big/4/7/f/0/47f0d106b32eaa8ca755952251c5043a.jpg',
         'position': geo.point(latitude: 38.7084509, longitude: -9.1353743).data,
         'rating': '4.5',
-        'description': "We offer the best meat in Lisbon, your girl won't regret it",
+        'description': "We offer the best meat in Lisbon, Salt Bae ain't even close",
         'price': '€€',
         'type': 'carne'
       },
@@ -322,8 +382,17 @@ class DB {
         'image': 'https://images.trustinnews.pt/uploads/sites/5/2019/10/14161236Restaurante-Meat-Me-0W2J3283.JPG',
         'position': geo.point(latitude: 38.7173, longitude: -9.1424).data,
         'rating': '5.0',
-        'description': "We offer the best meat in Lisbon, your girl won't regret it",
+        'description': "Simply the best meat in Lisbon",
         'price': '€€',
+        'type': 'carne'
+      },
+      {
+        'name': 'Tasca Os Belenenses',
+        'image': 'https://images.trustinnews.pt/uploads/sites/5/2019/10/14161236Restaurante-Meat-Me-0W2J3283.JPG',
+        'position': geo.point(latitude: 38.7173, longitude: -9.1424).data,
+        'rating': '4.0',
+        'description': "Get youself the best meat in Belém, before going to Restelo",
+        'price': '€',
         'type': 'carne'
       },
     ];
