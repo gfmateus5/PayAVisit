@@ -18,7 +18,7 @@ class DB {
       {
         'name': 'Instituto Superior Técnico',
         'image': 'https://tecnico.ulisboa.pt/files/2020/07/cinco-cursos-do-tecnico-com-desemprego-zero-1140x641.jpg',
-        'position': geo.point(latitude: 38.7364941, longitude: -9.1336263).data,
+        'position': geo.point(latitude: 38.736851, longitude: -9.137885).data,
         'description': 'Instituto Superior Técnico is, as of today, the largest school of engineering, architecture, science and technology in Portugal.',
         'coins': '50',
         'rating': '5.0'
@@ -247,6 +247,22 @@ class DB {
         'coins': '40',
         'rating': '4.0'
       },
+      {
+        'name': 'Arco do Cego',
+        'image': 'https://bordalo.observador.pt/v2/q:85/rs:fill:2000:1124/c:2000:1124:nowe:0:104/plain/https://s3.observador.pt/wp-content/uploads/2016/04/23103406/20572240.jpg',
+        'position': geo.point(latitude: 38.735781, longitude: -9.142263).data,
+        'description': "The most famous garden for students of Instituto Superior Técnico",
+        'coins': '20',
+        'rating': '5.0'
+      },
+      {
+        'name': 'Fonte Luminosa',
+        'image': 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Fonte_Monumental_Alameda_D_Afonso_Henriques_IMG_4511.jpg',
+        'position': geo.point(latitude: 38.737175, longitude: -9.130841).data,
+        'description': "Dating from 1940, when the world was at war and Lisbon remained at peace, this is a monumental fountain placed in the center of a new neighborhood at the time, the 'Avenidas Novas.'",
+        'coins': '40',
+        'rating': '4.2'
+      },
     ];
 
     final events = [
@@ -319,6 +335,26 @@ class DB {
         'time': '4:00 pm',
         'duration': '3:00',
         'by': 'Donaldo'
+      },
+      {
+        'name': 'Tuna IST Concert',
+        'image': 'https://tmist.tecnico.ulisboa.pt/images/contactos.jpg',
+        'position': geo.point(latitude: 38.735779, longitude: -9.142169).data,
+        'description': "Enjoy a chill concert by a traditional music band made up of IST students",
+        'date': '3 feb',
+        'time': '4:30 pm',
+        'duration': '0:45',
+        'by': 'Quiosque do Arco do Cego'
+      },
+      {
+        'name': 'Farense v Estrela da Amadora',
+        'image': 'https://www.algarveprimeiro.com/files/resizes/noticias/730X407/img_61b6198352913.jpg',
+        'position': geo.point(latitude: 37.022683, longitude: -7.928116).data,
+        'description': "Is it this time that Farense finally wins a game?",
+        'date': '1 feb',
+        'time': '6:30 pm',
+        'duration': '2:00',
+        'by': 'Pastelaria Farodoce'
       },
     ];
 
@@ -394,6 +430,24 @@ class DB {
         'description': "Get youself the best meat in Belém, before going to Restelo",
         'price': '€',
         'type': 'carne'
+      },
+      {
+        'name': 'Quiosque do Arco do Cego',
+        'image': 'https://b.zmtcdn.com/data/pictures/0/8211420/a66bfdf67161ce8efb3f12bd85a20a53_featured_v2.jpg',
+        'position': geo.point(latitude: 38.735383, longitude: -9.142107).data,
+        'rating': '4.8',
+        'description': "Come here for a nice, chill evening, after a hard day's work at Técnico",
+        'price': '€',
+        'type': 'ff'
+      },
+      {
+        'name': 'Pastelaria Farodoce',
+        'image': 'https://media-cdn.tripadvisor.com/media/photo-s/16/76/12/f2/photo1jpg.jpg',
+        'position': geo.point(latitude: 37.023591, longitude: -7.929314).data,
+        'rating': '4.0',
+        'description': "Friendly neighborhood bakery, right next to the Estádio de S. Luís",
+        'price': '€',
+        'type': 'ff'
       },
     ];
 
