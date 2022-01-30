@@ -85,7 +85,7 @@ class _PayAVisitPageState extends State<PayAVisitPage> {
                     ),
                   ),
                   TextSpan(
-                    text: 'Dinis "A Pedra"',
+                    text: 'Dinis Rocha',
                   )
                 ],
               ),

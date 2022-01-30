@@ -296,7 +296,7 @@ class _SpotDetailsState extends State<SpotDetails> {
               margin: EdgeInsets.only(left: 35, right: 35, bottom: 15),
               child: Text(widget.spot["description"], style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 17,
               ),
                   textAlign: TextAlign.center
               ),

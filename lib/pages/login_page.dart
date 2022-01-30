@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       child: Text(
-                                        'Continue as DinisAPedra',
+                                        'Continue as Dinis Rocha',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,

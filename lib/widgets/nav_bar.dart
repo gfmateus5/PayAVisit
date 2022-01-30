@@ -48,7 +48,7 @@ class NavBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Text("Dinis 'A Pedra'", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text("Dinis Rocha", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   ],
                 ),
               ),

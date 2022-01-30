@@ -146,7 +146,7 @@ class _EventDetails extends State<EventDetails> {
                 margin: EdgeInsets.only(left: 35, right: 35),
                 child: Text(widget.description, style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 17,
                 ),
                     textAlign: TextAlign.center
                 ),
