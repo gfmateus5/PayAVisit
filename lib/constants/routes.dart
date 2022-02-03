@@ -11,6 +11,12 @@ const route_types = [
         'https://offloadmedia.feverup.com/lisboasecreta.co/wp-content/uploads/2018/06/19182104/svetlana-gumerova-gOLCAOuc7iA-unsplash-scaled.jpg'
   },
   {
+    'name': "Lesser Known Spots",
+    'spots': lesser_known,
+    'image':
+        'https://cdn-images.rtp.pt/icm/noticias/images/00/00ad302ab70b8331ffc45c3e0f6eef88?w=1200&q=90&rect=35,0,719,394&auto=format'
+  },
+  {
     'name': "Historic Spots",
     'spots': historic_spots,
     'image':
@@ -95,6 +101,26 @@ const most_famous = [
 ];
 
 const historic_spots = [
+  "Castelo de São Jorge",
+  "Elevador de Santa Justa",
+  "Sé de Lisboa",
+  "Terreiro do Paço",
+  "Baixa-Chiado",
+  "Panteão Nacional",
+  "Padrão dos Descobrimentos",
+  "Torre de Belém",
+  "Mosteiro dos Jerónimos",
+  "Assembleia da República",
+  "Marquês de Pombal",
+  "Convento do Carmo",
+  "Teatro Nacional de São Carlos",
+  "Palácio das Necessidades",
+  "Palácio da Pena",
+  "Palácio de Queluz",
+  "Convento de Mafra"
+];
+
+const lesser_known = [
   "Castelo de São Jorge",
   "Elevador de Santa Justa",
   "Sé de Lisboa",
