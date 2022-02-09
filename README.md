@@ -1,7 +1,4 @@
-# Flutter Google Maps
-
-Aplicativo de exemplo para simular a geolocalização de um usuário que deseja procurar cafeterias nas proximidades. 
-O projeto conta com recursos de geolocalização, google maps e filtros de busca (raio de proximidade) usando o Firebase Firestore. 
+# PayAVisit 
 
 ## Como executar o projeto?
 
